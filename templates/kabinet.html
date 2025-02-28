@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education</title>
+
+    <!-- Подключение CSS -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/header.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/css/kabinet.css">
+</head>
+
+<body class="bg-gray-100">
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1>Welcome to English Gang</h1>
+            <p id="welcomeMessage">
+                Discover our platform for learning English with professional teachers.
+                <span id="loginPrompt">
+                    <a href="/login2.html">Login</a> to get started!
+                </span>
+            </p>
+        </div>
+    
+        <!-- Our Teachers Section -->
+        <div class="teachers-section">
+            <h2>Our Teachers</h2>
+            <div id="teachersList">
+                <div>Loading teachers...</div>
+            </div>
+        </div>
+    
+        <!-- Student Dashboard Section (visible only for logged in users) -->
+        <div id="studentDashboard" class="student-dashboard hidden">
+            <h2>Your Dashboard</h2>
+            <div id="studentData">
+                <!-- Student specific data will be loaded here -->
+            </div>
+        </div>
+    
+        <!-- Teacher Dashboard Section (visible only for logged in teachers) -->
+        <div id="teacherDashboard" class="teacher-dashboard hidden">
+            <h2>Teacher Dashboard</h2>
+            <div id="teacherData">
+                <!-- Teacher specific data will be loaded here -->
+            </div>
+        </div>
+    
+        <!-- Manager Dashboard Section (visible only for managers) -->
+        <div id="managerDashboard" class="manager-dashboard hidden">
+            <h2>Admin Dashboard</h2>
+            <div id="managerData">
+                <!-- Manager specific data will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="static/js/kabinet.js"></script>
+    <script src="static/js/global.js"></script>
+</body>
+</html>
