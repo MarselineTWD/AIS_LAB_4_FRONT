@@ -19,7 +19,11 @@ from routers import auth_routes, teacher_routes, student_routes
 models.Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI app
-app = FastAPI(title="English Gang API")
+app = FastAPI(
+    title="English Gang API",
+    docs_url="/api/docs",  # URL для Swagger UI
+    openapi_url="/api/openapi.json"  # URL для OpenAPI схемы
+)
 
 # Configure CORS
 app.add_middleware(
