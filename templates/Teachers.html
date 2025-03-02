@@ -13,18 +13,18 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/gijgo.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/slicknav.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/themify-icons.css">
+    <link rel="stylesheet" href="static/css/nice-select.css">
+    <link rel="stylesheet" href="static/css/flaticon.css">
+    <link rel="stylesheet" href="static/css/gijgo.css">
+    <link rel="stylesheet" href="static/css/animate.css">
+    <link rel="stylesheet" href="static/css/slicknav.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/header.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 
@@ -36,16 +36,6 @@
 
     <!-- header-start -->
     <div id="header-container"></div>
-
-    <script>
-        // Функция для загрузки футера
-        fetch('static/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            })
-            .catch(error => console.error('Ошибка при загрузке футера:', error));
-    </script>
     <!-- header-end -->
 
 
@@ -70,6 +60,12 @@
                 <div class="col-lg-12">
                     <div class="section_title text-center">
                         <h3>Преподаватели</h3>
+                        <div class="teachers-section">
+                            <h2>Наши преподаватели</h2>
+                            <div id="teachersList">
+                                <div>Загрузка преподавателей...</div>
+                            </div>
+                        </div>
                     </div> 
                 </div>
             </div>
@@ -79,16 +75,6 @@
 
     <!-- footer start -->
     <div id="footer-container"></div>
-
-    <script>
-        // Функция для загрузки футера
-        fetch('static/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(error => console.error('Ошибка при загрузке футера:', error));
-    </script>
     <!-- footer end  --> 
 
 
@@ -113,11 +99,12 @@
     <script src="js/gijgo.min.js"></script>
 
     <!--contact js-->
-    <script src="js/contact.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/jquery.form.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/mail-script.js"></script>
+    <script src="static/js/contact.js"></script>
+    <script src="static/js/jquery.ajaxchimp.min.js"></script>
+    <script src="static/js/jquery.form.js"></script>
+    <script src="static/js/jquery.validate.min.js"></script>
+    <script src="static/js/mail-script.js"></script>
+    <script src="static/js/Teachers.js"></script>
 
     <script src="js/main.js"></script>
 

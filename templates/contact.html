@@ -13,18 +13,18 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/gijgo.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/slicknav.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/themify-icons.css">
+    <link rel="stylesheet" href="static/css/nice-select.css">
+    <link rel="stylesheet" href="static/css/flaticon.css">
+    <link rel="stylesheet" href="static/css/gijgo.css">
+    <link rel="stylesheet" href="static/css/animate.css">
+    <link rel="stylesheet" href="static/css/slicknav.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/header.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 
@@ -70,7 +70,7 @@
                         <h2 class="contact-title">Связаться с нами</h2>
                     </div>
                     <div class="col-lg-8">
-                        <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                        <form class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -137,6 +137,26 @@
                 document.getElementById('footer-container').innerHTML = data;
             })
             .catch(error => console.error('Ошибка при загрузке футера:', error));
+    </script>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Отменяем стандартную отправку формы
+            
+            // Получаем значение email
+            var emailInput = document.getElementById('email');
+            var email = emailInput.value.trim();
+            
+            // Регулярное выражение для проверки email
+            var emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Пожалуйста, введите корректный email адрес');
+                return;
+            }
+            
+            this.reset(); // Очищаем все поля формы
+            alert('Ваше сообщение отправлено'); // Выводим сообщение
+        });
     </script>
     <!-- footer end  -->
     

@@ -17,7 +17,6 @@
     <!-- Подключаем Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-
     <!-- CSS here -->
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/owl.carousel.min.css">
@@ -33,17 +32,22 @@
     <link rel="stylesheet" href="static/css/auth.css">
     <link rel="stylesheet" href="static/css/header.css">
 
-    
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-
-
+    <!-- Добавление стилей для заднего фона -->
+    <style>
+        body {
+            background-image: url("static/img/folder/back.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 
 <body>
     <div id="header-container"></div>
     
-
-    <div class="contregist" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 600px; margin: 50px auto; padding: 20px; background: #f9f9f9; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+    <div class="contregist" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 600px;">
         <div class="title" style="font-size: 24px; font-weight: bold; margin-bottom: 15px; text-align: center;">Авторизация</div>
         <div class="content">
             <div class="switch-buttons" style="margin-bottom: 15px; display: flex; justify-content: center; gap: 15px;">
@@ -135,7 +139,7 @@
         </div>
     </div>
 
-    <div id="footer-container"></div>
+
     <script src="static/js/auth.js"></script>
     <script src="static/js/registration.js"></script>
 </body>

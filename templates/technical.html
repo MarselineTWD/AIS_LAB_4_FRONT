@@ -13,7 +13,16 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/themify-icons.css">
+    <link rel="stylesheet" href="static/css/nice-select.css">
+    <link rel="stylesheet" href="static/css/flaticon.css">
+    <link rel="stylesheet" href="static/css/gijgo.css">
+    <link rel="stylesheet" href="static/css/animate.css">
+    <link rel="stylesheet" href="static/css/slicknav.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/technical.css">
     <link rel="stylesheet" href="static/css/header.css">
@@ -35,19 +44,8 @@
     </script>
     <!-- header-end -->
 
-    <!-- bradcam_area_start  -->
-    <div class="bradcam_area breadcam_bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="bradcam_text">
-                        <h3>Чуть больше про EnglishGang</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- bradcam_area_end  -->
+
+
 
     <!--================technical start =================-->
     <article class="technical-info">
@@ -57,7 +55,7 @@
         </header>
     
         <section class="system-goals">
-            <h2 style="text-align: center;">Цели создания системы</h2>
+            <h2 style="text-align: center; font-family: 'Abril Fatface', cursive;">Цели создания системы</h2>
             <div class="goals-content">
                 <article class="goal">
                     <h3>Автоматизация определения уровня владения английским языком</h3>
@@ -177,15 +175,22 @@
         $('#datepicker').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
-             rightIcon: '<span class="fa fa-caret-down"></span>'
-         }
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
         });
         $('#datepicker2').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
-             rightIcon: '<span class="fa fa-caret-down"></span>'
-         }
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
 
+        });
+        $(document).ready(function() {
+            $('.goal, .feature, .tech-category').waypoint(function() {
+                $(this.element).addClass('animated');
+            }, {
+                offset: '80%' // Trigger when 80% of the element is visible
+            });
         });
     </script>
 </body>
