@@ -51,7 +51,15 @@ function loadHeader() {
         .catch(error => console.error('Ошибка при загрузке header:', error));
 }
 
+
 // Выполняем загрузку header при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     loadHeader();
 });
+
+fetch('static/footer.html')
+    .then(response => response.text())
+    .then(data => {
+            document.getElementById('footer-container').innerHTML = data;
+        })
+    .catch(error => console.error('Ошибка при загрузке футера:', error));

@@ -1,3 +1,7 @@
+.body {
+  background: url("../img/folder/back.jpg") no-repeat center center fixed !important;
+  background-size: cover !important;
+}
 /* --- Основной контейнер формы --- */
 .contregist {
   max-width: 700px;

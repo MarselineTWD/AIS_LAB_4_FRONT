@@ -1,3 +1,9 @@
+.body {
+    margin-top: 100px;
+    background: url("../img/folder/back.jpg") no-repeat center center fixed !important;
+    background-size: cover !important;
+}
+
 /* Основной контейнер */
 .main-content {
     max-width: 1280px; /* соответствует max-w-7xl */
@@ -9,29 +15,52 @@
     padding-bottom: 3rem;
 }
 
-/* Welcome Section */
+/* Welcome Section как всплывающее окно */
 .welcome-section {
-    background: linear-gradient(to right, #eef2ff, #eff6ff); /* from-indigo-50 to-blue-50 */
-    border-radius: 0.75rem; /* rounded-xl */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
-    padding: 2rem; /* p-8 */
-    margin-bottom: 2rem; /* mb-8 */
-    }
+    position: fixed;
+    top: 20%; /* Чуть ниже header */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    text-align: center;
+    max-width: 90%;
+    width: 550px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background: url("../img/folder/back.jpg") no-repeat center center fixed !important;
+    background-size: cover !important;
+}
 
+/* Показ при загрузке */
+.welcome-section.show {
+    opacity: 1;
+}
+
+/* Плавное исчезновение */
+.welcome-section.fade-out {
+    opacity: 0;
+}
+
+/* Скрытие по умолчанию */
+.hidden {
+    display: none;
+}
 
 .welcome-section h1 {
     font-size: 1.875rem; /* text-3xl */
     font-weight: 800; /* font-extrabold */
     font-family: 'Abril Fatface', cursive;
-    color: #1D3D66; /* text-indigo-900 */
+    color: #ffffff; /* text-indigo-900 */
     margin-bottom: 0.75rem; /* mb-3 */
     letter-spacing: -0.025em; /* tracking-tight */
     transition: color 0.3s ease;
 }
 
-
 .welcome-section p {
-    color: #1D3D66; /* text-gray-700 */
+    color: #ffffff; /* text-gray-700 */
     font-size: 1.125rem; /* text-lg */
     line-height: 1.75; /* leading-relaxed */
     transition: all 0.3s ease;
@@ -50,15 +79,24 @@
 
 /* Our Teachers Section */
 .teachers-section {
-    background-color: #ffffff; /* bg-white */
-    border-radius: 0.75rem; /* rounded-xl */
-    box-shadow: 3px 10px 15px 3px rgba(0, 0, 0, 0.1), 3px 4px 6px 2px rgba(0, 0, 0, 0.05); /* shadow-lg */
     padding: 2rem; /* p-8 */
-    margin-bottom: 2rem; /* mb-8 */
+    border: 3px dashed #1D3D66; /* пунктирная рамка в темно-синем цвете */
+    border-radius: 1rem;
+    background: linear-gradient(to right, #ffd1d1, #ffffcf); /* градиент от светло-синего */    margin-bottom: 2rem; /* mb-8 */
+    animation: slideIn 0.5s ease-in-out forwards;
+    position: relative;
+}
+
+.teachers-section::before {
+    content: "👩‍🏫"; /* смайлик учительницы */
+    position: absolute;
+    top: -2rem;
+    left: 1.5rem;
+    font-size: 2.5rem;
 }
 
 .teachers-section h2 {
-    font-size: 1.5rem; /* text-2xl */
+    
     font-weight: 700; /* font-bold */
     color: #1D3D66; /* text-gray-800 */
     font-family: 'Abril Fatface', cursive;
@@ -67,9 +105,7 @@
     padding-bottom: 0.5rem; /* pb-2 */
     display: inline-block;
     transition: color 0.3s ease;
-    
 }
-
 
 .teachers-section #teachersList {
     display: grid;
@@ -89,7 +125,36 @@
     }
 }
 
+.teacherlist-show {
+    border: 2px solid #1D3D66; /* сплошная индиго рамка */
+    border-radius: 0.75rem;
+    padding: 1rem;
+    background: linear-gradient(to bottom right, #eff6ff, #dbeafe); /* градиент от светло-синего */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
 
+.teacherlist-show::before {
+    content: "✍️"; /* смайлик пишущей руки */
+    position: absolute;
+    top: -1.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
+}
+
+.teacherlist-show:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.teacherlist-show-p {
+    color: #1f2937; /* text-gray-800 */
+    text-align: center;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
 
 /* Student Dashboard */
 .student-dashboard {
@@ -101,18 +166,15 @@
 }
 
 .student-dashboard h2 {
-    font-size: 1.5rem; /* text-2xl */
     font-weight: 700; /* font-bold */
-    color: #115e59; /* text-teal-800 */
+    font-family: 'Abril Fatface', cursive;
+    color: #1D3D66; /* text-teal-800 */
     margin-bottom: 1.5rem; /* mb-6 */
-    border-bottom: 2px solid #14b8a6; /* border-b-2 border-teal-500 */
+    border-bottom: 2px solid #1D3D66; /* border-b-2 border-teal-500 */
     padding-bottom: 0.5rem; /* pb-2 */
     display: inline-block;
     transition: color 0.3s ease;
-}
 
-.student-dashboard h2:hover {
-    color: #4f46e5; /* Индиго при наведении */
 }
 
 .student-dashboard #studentData {
@@ -120,28 +182,184 @@
     space-y: 1.5rem; /* space-y-6 */
 }
 
+/* Стили для профиля студента */
+.student-profile {
+    padding: 1.5rem;
+    border: 3px dashed #14b8a6; /* пунктирная рамка в цвете teal */
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.8); /* полупрозрачный белый фон */
+    animation: slideIn 0.5s ease-in-out forwards;
+}
+
+.student-details {
+    padding: 1rem;
+    border: 2px solid #4f46e5; /* рамка индиго */
+    border-radius: 0.5rem;
+    background-color: #e0f2fe; /* светло-голубой фон */
+    margin-bottom: 1rem;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* анимация при наведении */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* начальная тень */
+}
+
+.student-details:hover {
+    transform: translateY(-5px); /* подъем на 5px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* увеличенная тень */
+}
+
+.student-details::before {
+    content: "📚"; /* смайлик книги */
+    position: absolute;
+    top: -1.5rem;
+    left: 1rem;
+    font-size: 2rem;
+}
+
+.student-details p {
+    margin: 0.5rem 0;
+    color: #1f2937; /* text-gray-800 */
+    font-weight: 500;
+}
+
+.vocabulary-section {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 2px dotted #f97316; /* оранжевая пунктирная рамка */
+    border-radius: 0.75rem;
+    background-color: #fff7ed; /* светло-оранжевый фон */
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* анимация при наведении */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* начальная тень */
+}
+
+.vocabulary-section:hover {
+    transform: translateY(-5px); /* подъем на 5px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* увеличенная тень */
+}
+
+.vocabulary-section::before {
+    content: "🌟"; /* смайлик звезды */
+    position: absolute;
+    top: -1.5rem;
+    right: 1rem;
+    font-size: 2rem;
+}
+
+.vocabulary-section h3 {
+    color: #f97316; /* оранжевый заголовок */
+    margin-bottom: 0.75rem;
+}
+
+.vocabulary-progress-container {
+    background-color: #e5e7eb; /* серый фон */
+    height: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid #14b8a6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vocabulary-progress {
+    background: linear-gradient(to right, #4f46e5, #14b8a6); /* градиент от индиго к teal */
+    height: 100%;
+    color: white;
+    text-align: center;
+    line-height: 2rem;
+    font-weight: bold;
+    transition: width 0.5s ease-in-out; /* анимация заполнения */
+}
+
+.vocabulary-description {
+    margin-top: 0.75rem;
+    font-style: italic;
+    color: #4b5563; /* text-gray-600 */
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.vocabulary-description::before {
+    content: "✅"; /* смайлик галочки */
+    position: absolute;
+    left: 0;
+    font-size: 1rem;
+}
+
+.learning-progress {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 2px solid #10b981; /* зеленая рамка */
+    border-radius: 0.5rem;
+    background-color: #ecfdf5; /* светло-зеленый фон */
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* анимация при наведении */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* начальная тень */
+}
+
+.learning-progress:hover {
+    transform: translateY(-5px); /* подъем на 5px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* увеличенная тень */
+}
+
+.learning-progress::before {
+    content: "🎓"; /* смайлик шапочки выпускника */
+    position: absolute;
+    top: -1.5rem;
+    left: 1rem;
+    font-size: 2rem;
+}
+
+.learning-progress h3 {
+    color: #10b981; /* зеленый заголовок */
+    margin-bottom: 0.75rem;
+}
+
+.learning-progress p {
+    margin: 0.5rem 0;
+    color: #1f2937; /* text-gray-800 */
+    font-weight: 500;
+}
+
+/* Анимация появления */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Teacher Dashboard */
 .teacher-dashboard {
-    background: linear-gradient(to right, #eff6ff, #eef2ff); /* from-blue-50 to-indigo-50 */
-    border-radius: 0.75rem; /* rounded-xl */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
     padding: 2rem; /* p-8 */
+    border: 3px dashed #4f46e5; /* пунктирная рамка в индиго */
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.9); /* полупрозрачный белый фон */
     margin-bottom: 2rem; /* mb-8 */
+    animation: slideIn 0.5s ease-in-out forwards;
+    position: relative;
+}
+
+.teacher-dashboard::before {
+    content: "👨‍🏫"; /* смайлик учителя */
+    position: absolute;
+    top: -2rem;
+    left: 1.5rem;
+    font-size: 2.5rem;
 }
 
 .teacher-dashboard h2 {
     font-size: 1.5rem; /* text-2xl */
     font-weight: 700; /* font-bold */
-    color: #3730a3; /* text-indigo-800 */
+    color: #1D3D66; /* text-indigo-800 */
     margin-bottom: 1.5rem; /* mb-6 */
-    border-bottom: 2px solid #6366f1; /* border-b-2 border-indigo-500 */
+    border-bottom: 2px solid #1D3D66; /* border-b-2 border-indigo-500 */
     padding-bottom: 0.5rem; /* pb-2 */
     display: inline-block;
     transition: color 0.3s ease;
-}
-
-.teacher-dashboard h2:hover {
-    color: #4f46e5; /* Индиго при наведении */
+    font-family: 'Abril Fatface', cursive;
 }
 
 .teacher-dashboard #teacherData {
@@ -151,12 +369,22 @@
 
 /* Manager Dashboard */
 .manager-dashboard {
-    background: linear-gradient(to right, #defaff, #fce7f3); /* from-purple-50 to-pink-50 */
-    border-radius: 0.75rem; /* rounded-xl */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
     padding: 2rem; /* p-8 */
+    border: 3px dashed #8b5cf6; /* пунктирная рамка в фиолетовом цвете */
+    border-radius: 1rem;
+    background: linear-gradient(to right, #c3e1ff, #ffd8f4); /* from-blue-50 to-indigo-50 */
     margin-bottom: 2rem; /* mb-8 */
-    height: 250px;
+    animation: slideIn 0.5s ease-in-out forwards;
+    position: relative;
+    height: auto; /* убрана фиксированная высота для адаптивности */
+}
+
+.manager-dashboard::before {
+    content: "🛠️"; /* смайлик инструментов */
+    position: absolute;
+    top: -2rem;
+    left: 1.5rem;
+    font-size: 2.5rem;
 }
 
 .manager-dashboard h2 {
@@ -172,18 +400,58 @@
 }
 
 .manager-admin {
-    display: flex;             /* включаем флекс-контейнер */
-    justify-content: space-between; /* равномерное распределение */
-    gap: 20px;                 /* расстояние между блоками */
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .manager-teacher,
 .manager-student {
-    flex: 1;                   /* равное распределение пространства */
-    min-width: 300px;          /* минимальная ширина для корректного отображения */
+    flex: 1;
+    min-width: 300px;
+    padding: 1rem;
+    border: 2px solid #8b5cf6; /* фиолетовая рамка */
+    border-radius: 0.75rem;
+    background: linear-gradient(to bottom right, #f3e8ff, #e9d5ff); /* градиент от светло-фиолетового */
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* анимация при наведении */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* начальная тень */
 }
 
+.manager-teacher:hover,
+.manager-student:hover {
+    transform: translateY(-5px); /* подъем на 5px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* увеличенная тень */
+}
 
+.manager-teacher::before {
+    content: "👨‍🏫"; /* смайлик учителя */
+    position: absolute;
+    top: -1.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
+}
+
+.manager-student::before {
+    content: "👩‍🎓"; /* смайлик студентки */
+    position: absolute;
+    top: -1.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
+}
+
+.manager-teacher h3,
+.manager-student h3 {
+    color: #8b5cf6; /* фиолетовый заголовок */
+    margin-bottom: 0.75rem;
+}
+
+.manager-teacher p,
+.manager-student p {
+    color: #1f2937; /* text-gray-800 */
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
 
 /* Адаптивность: на маленьких экранах блоки могут располагаться вертикально */
 @media (max-width: 768px) {
@@ -192,7 +460,6 @@
         gap: 10px;
     }
 }
-
 
 .manager-dashboard #managerData {
     color: #374151; /* text-gray-700 */
@@ -204,88 +471,108 @@
     display: none;
 }
 
-.teacher-add-button {
-    background-color: #1D3D66;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.teacher-add-button:hover {
-    background-color: #e9ecef;
-    color: #1D3D66 ;
-    border: 1px solid #1D3D66;
-}
-
-
+.teacher-add-button,
 .student-add-button {
-    background-color: #1D3D66;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
+    background-color: transparent; /* прозрачный фон */
+    color: #8b5cf6; /* фиолетовый текст в тон разделу */
+    padding: 8px 16px; /* чуть меньше отступов */
+    border: 2px solid #8b5cf6; /* рамка в тон разделу */
+    border-radius: 0.5rem; /* скругленные углы */
     text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-weight: 500; /* средний вес шрифта */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
+.teacher-add-button:hover,
 .student-add-button:hover {
-    background-color: #e9ecef;
-    color: #1D3D66 ;
-    border: 1px solid #1D3D66;
+    background-color: #8b5cf6; /* фиолетовый фон при наведении */
+    color: #ffffff; /* белый текст */
+    transform: translateY(-2px); /* легкий подъем */
 }
 
 .teacherlist-text {
     color: #1D3D66;
     font-family: 'Arial', sans-serif;
-
 }
 
-.teacherlist-show-p {
-    color: #000000;
+/* Загрузка */
+.loading-text {
     text-align: center;
-    font-size: 16px;
+}
+
+/* Текст при отсутствии студентов */
+.no-students-text {
+    text-align: center;
+}
+
+.students-title {
+    font-size: 1.3rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 0.75rem; /* mb-3 */
+    position: relative;
     
 }
 
-.teacherlist-show {
-    border: 2px solid #1D3D66;
-    border-radius: 8px;               
-    padding: 15px;
-    margin: 10px 0;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.457);
-    background-color: #fff;
-    opacity: 0;                     /* начальное состояние для анимации */
-    transform: translateY(20px);    /* смещение для анимации */
-    animation: fadeInUp 0.5s forwards;
+
+/* Сетка для карточек */
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+    gap: 1rem; /* gap-4 */
 }
-/* Определение анимации */
-@keyframes fadeInUp {
-    to {
-    opacity: 1;
-    transform: translateY(0);
+
+@media (min-width: 768px) {
+    .students-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
     }
 }
 
-.teacherlist-show:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.457);
-    transform: translateY(-3px);
-    transition: transform 0.3s, box-shadow 0.3s;
+@media (min-width: 1024px) {
+    .students-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+    }
 }
 
-
-.manager-js {
-    display: flex;
-    align-items: center;
+/* Карточка студента */
+.student-card {
+    border: 2px solid #4f46e5; /* сплошная индиго рамка */
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: linear-gradient(to bottom right, #eff6ff, #dbeafe); /* градиент от светло-синего */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
-.manager-js h3 {
+.student-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.student-card::before {
+    content: "📝"; /* смайлик листа бумаги */
+    position: absolute;
+    top: -1.5rem;
+    right: 1rem;
     font-size: 1.5rem;
-    font-weight: 700;
-    color: #1D3D66;
-    margin-right: 100px;
 }
 
+/* Имя студента */
+.student-name {
+    font-weight: 600; /* font-semibold */
+    color: #1f2937; /* text-gray-800 */
+}
 
+/* Уровень студента */
+.student-level {
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
+    margin-top: 0.5rem; /* mt-2 */
+}
+
+/* Словарный запас */
+.student-vocab {
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
+}

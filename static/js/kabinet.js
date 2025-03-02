@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', async function() {
+    // Показываем welcome-section при загрузке страницы
+    const welcomeSection = document.getElementById('welcomeSection');
+    welcomeSection.classList.remove('hidden');
+    welcomeSection.classList.add('show');
+
+    // Скрываем через 3 секунды с плавным исчезновением
+    setTimeout(() => {
+        welcomeSection.classList.remove('show');
+        welcomeSection.classList.add('fade-out');
+        // Полностью скрываем после завершения анимации (0.5s)
+        setTimeout(() => {
+            welcomeSection.classList.add('hidden');
+            welcomeSection.classList.remove('fade-out');
+        },500);
+    }, 1000); // Увеличил до 3000 для лучшей видимости
+
     await loadTeachers();
     
     const token = localStorage.getItem('token');
@@ -6,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         try {
             const userData = await fetchUserData(token);
             updateUIforLoggedInUser(userData);
-            await loadRoleSpecificData(userData.role, token);
+            await loadRoleSpecificData(userData.role, token, userData);
         } catch (error) {
             console.error('Error loading user data:', error);
             if (error.status === 401) {
@@ -19,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-// Функции загрузки и отображения учителей остаются без изменений
+// Загрузка списка преподавателей
 async function loadTeachers() {
     try {
         const response = await fetch('/api/teachers/public');
@@ -48,7 +64,7 @@ function displayTeachers(teachers) {
     `).join('');
 }
 
-// Обновление UI для гостя
+// UI для гостя
 function updateUIforGuest() {
     const loginPrompt = document.getElementById('loginPrompt');
     if (loginPrompt) loginPrompt.classList.remove('hidden');
@@ -58,7 +74,7 @@ function updateUIforGuest() {
     document.getElementById('managerDashboard')?.classList.add('hidden');
 }
 
-// Обновление UI для авторизованного пользователя
+// UI для авторизованного пользователя
 function updateUIforLoggedInUser(userData) {
     const welcomeMessage = document.getElementById('welcomeMessage');
     if (welcomeMessage) {
@@ -78,7 +94,7 @@ function updateUIforLoggedInUser(userData) {
     }
 }
 
-// Остальные функции (fetchUserData, loadRoleSpecificData) остаются без изменений
+// Получение данных пользователя
 async function fetchUserData(token) {
     const response = await fetch('/api/me', {
         headers: {
@@ -95,44 +111,61 @@ async function fetchUserData(token) {
     return await response.json();
 }
 
-async function loadRoleSpecificData(role, token) {
+// Загрузка данных в зависимости от роли
+async function loadRoleSpecificData(role, token, userData) {
     try {
         if (role === 'student') {
             const studentData = document.getElementById('studentData');
             studentData.innerHTML = '<div class="text-center">Loading your data...</div>';
+
+            const studentInfo = userData.additional_info;
+            const vocabularyProgress = calculateVocabularyProgress(studentInfo.vocabulary);
+
             studentData.innerHTML = `
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Your Progress</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-sm text-gray-600">Current Level</div>
-                            <div class="text-2xl font-bold text-indigo-600">B1</div>
+                <div class="student-profile">
+                    <div class="student-details">
+                        <p><strong>Имя:</strong> ${studentInfo.first_name} ${studentInfo.last_name}</p>
+                        <p><strong>Email:</strong> ${userData.email}</p>
+                        <p><strong>Уровень английского:</strong> ${studentInfo.level}</p>
+                    </div>
+                    <div class="vocabulary-section">
+                        <h3>Словарный запас</h3>
+                        <div class="vocabulary-progress-container">
+                            <div class="vocabulary-progress" style="width: ${vocabularyProgress}%">
+                                ${studentInfo.vocabulary} слов
+                            </div>
                         </div>
-                        <div>
-                            <div class="text-sm text-gray-600">Vocabulary Size</div>
-                            <div class="text-2xl font-bold text-indigo-600">1200 words</div>
+                        <p class="vocabulary-description">
+                            ${getVocabularyDescription(studentInfo.vocabulary)}
+                        </p>
+                    </div>
+                    <div class="learning-progress">
+                        <h3>Прогресс обучения</h3>
+                        <div class="progress-details">
+                            <p>Уроки пройдены: <span id="completedLessons">0</span></p>
+                            <p>Тесты сданы: <span id="completedTests">0</span></p>
                         </div>
                     </div>
                 </div>
             `;
         } else if (role === 'teacher') {
             const teacherData = document.getElementById('teacherData');
-            teacherData.innerHTML = '<div class="text-center">Loading your students...</div>';
+            teacherData.innerHTML = '<div class="loading-text">Загрузка ваших студентов...</div>';
             const response = await fetch('/api/students/', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) throw new Error('Failed to load students data');
             const students = await response.json();
             teacherData.innerHTML = students.length === 0 ? 
-                '<div class="text-center">You don\'t have any students yet.</div>' :
+                '<div class="no-students-text">У вас нет студентов</div>' :
                 `
-                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Your Students</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <h3 class="students-title">Ваши студенты</h3>
+                    <div class="students-grid">
                         ${students.map(s => `
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <div class="font-semibold">${s.first_name} ${s.last_name}</div>
-                                <div class="text-sm text-gray-600">Level: ${s.level}</div>
-                                <div class="text-sm text-gray-600">Vocabulary: ${s.vocabulary} words</div>
+                            <div class="student-card">
+                                <div class="student-name">${s.first_name} ${s.last_name}</div>
+                                <div class="student-level">Level: ${s.level}</div>
+                                <div class="student-vocab">Vocabulary: ${s.vocabulary} words</div>
                             </div>
                         `).join('')}
                     </div>
@@ -149,16 +182,12 @@ async function loadRoleSpecificData(role, token) {
                     <div class="manager-teacher">
                         <h3>Управление преподавателями</h3>
                         <p class="mb-3">Всего учителей: ${teachersRes.length} </p>
-                        <button class="teacher-add-button">
-                            Добавить нового учителя
-                        </button>
+                        <button class="teacher-add-button">Добавить нового учителя</button>
                     </div>
                     <div class="manager-student">
                         <h3>Управление студентами</h3>
                         <p class="mb-3">Всего студентов: ${studentsRes.length} </p>
-                        <button class="student-add-button">
-                            Добавить нового студента
-                        </button>
+                        <button class="student-add-button">Добавить нового студента</button>
                     </div>
                 </div>
             `;
@@ -169,5 +198,26 @@ async function loadRoleSpecificData(role, token) {
         if (dataContainer) {
             dataContainer.innerHTML = '<div class="text-red-500">Error loading your data. Please try again later.</div>';
         }
+    }
+}
+
+// Расчет прогресса словарного запаса
+function calculateVocabularyProgress(vocabularyCount) {
+    const maxVocabulary = 5000;
+    return Math.min((vocabularyCount / maxVocabulary) * 100, 100);
+}
+
+// Описание уровня словарного запаса
+function getVocabularyDescription(vocabularyCount) {
+    if (vocabularyCount < 1000) {
+        return 'Начальный уровень словарного запаса. Продолжайте изучение!';
+    } else if (vocabularyCount < 2000) {
+        return 'Хороший прогресс! Ваш словарный запас растет.';
+    } else if (vocabularyCount < 3000) {
+        return 'Отличный уровень! Вы значительно расширили свой словарный запас.';
+    } else if (vocabularyCount < 4000) {
+        return 'Впечатляющий словарный запас! Вы близки к свободному владению.';
+    } else {
+        return 'Превосходный словарный запас! Вы практически носитель языка.';
     }
 }

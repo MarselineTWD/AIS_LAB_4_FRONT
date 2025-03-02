@@ -1,3 +1,4 @@
+
 .header-area {
     position:fixed;  /* Используем fixed для фиксации хедера */
     top: 0;
@@ -81,4 +82,10 @@ body {
     background-color: #e9ecef;
     color: #1D3D66 ;
     border: 1px solid #1D3D66;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }

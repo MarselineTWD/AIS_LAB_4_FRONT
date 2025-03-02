@@ -1,3 +1,7 @@
+.body {
+    background: url("../img/folder/back_ru.jpg") no-repeat center center fixed !important;
+    background-size: cover !important;
+}
 /* Секция команды */
 .team-section {
     max-width: 1200px;
