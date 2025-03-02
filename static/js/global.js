@@ -13,14 +13,14 @@ function updateHeaderButton() {
             if (isKabinetPage()) {
                 // На странице kabinet.html показываем "Logout"
                 authButton.removeAttribute('href');
-                authButton.textContent = 'Logout';
-                authButton.className = 'custom_test_button bg-red-500 hover:bg-red-600 text-white';
+                authButton.textContent = 'Разлогиниться';
+                authButton.className = 'custom_test_button2 ';
                 authButton.onclick = logout;
             } else {
                 // На других страницах показываем "Личный кабинет"
                 authButton.href = 'kabinet.html';
                 authButton.textContent = 'Личный кабинет';
-                authButton.className = 'custom_test_button bg-indigo-600 hover:bg-indigo-700 text-white';
+                authButton.className = 'custom_test_button';
                 authButton.onclick = null;
             }
         } else {

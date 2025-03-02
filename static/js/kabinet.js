@@ -35,15 +35,15 @@ async function loadTeachers() {
 function displayTeachers(teachers) {
     const teachersList = document.getElementById('teachersList');
     if (teachers.length === 0) {
-        teachersList.innerHTML = '<div class="text-center">No teachers available at the moment.</div>';
+        teachersList.innerHTML = '<div class="teacherlist-text">Нет доступных преподавателей в данный момент.</div>';
         return;
     }
     
     teachersList.innerHTML = teachers.map(teacher => `
-        <div class="bg-gray-50 p-4 rounded-lg shadow">
-            <div class="font-semibold text-lg text-gray-800">${teacher.first_name} ${teacher.last_name}</div>
-            <div class="text-gray-600 mb-2">Qualification: ${teacher.qualification || 'Not specified'}</div>
-            <div class="text-sm text-gray-500">${teacher.email}</div>
+        <div class="teacherlist-show">
+            <div class="teacherlist-show-p">${teacher.first_name} ${teacher.last_name}</div>
+            <div class="teacherlist-show-p">Qualification: ${teacher.qualification || 'Not specified'}</div>
+            <div class="teacherlist-show-p">${teacher.email}</div>
         </div>
     `).join('');
 }
@@ -63,7 +63,7 @@ function updateUIforLoggedInUser(userData) {
     const welcomeMessage = document.getElementById('welcomeMessage');
     if (welcomeMessage) {
         welcomeMessage.textContent = 
-            `Welcome back, ${userData.additional_info.first_name || userData.email}! You are logged in as ${userData.role}.`;
+            `С возвращением, ${userData.additional_info.first_name || userData.email}! Вы вошли как ${userData.role}.`;
     }
     
     const loginPrompt = document.getElementById('loginPrompt');
@@ -139,25 +139,25 @@ async function loadRoleSpecificData(role, token) {
                 `;
         } else if (role === 'manager') {
             const managerData = document.getElementById('managerData');
-            managerData.innerHTML = '<div class="text-center">Loading data...</div>';
+            managerData.innerHTML = '<div class="text-center">Загрузка данных...</div>';
             const [teachersRes, studentsRes] = await Promise.all([
                 fetch('/api/teachers/', { headers: { 'Authorization': `Bearer ${token}` } }).then(res => res.json()),
                 fetch('/api/students/', { headers: { 'Authorization': `Bearer ${token}` } }).then(res => res.json())
             ]);
             managerData.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Teachers Management</h3>
-                        <p class="mb-3">Total: ${teachersRes.length} teachers</p>
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-sm mb-4">
-                            Add New Teacher
+                <div class="manager-admin">
+                    <div class="manager-teacher">
+                        <h3>Управление преподавателями</h3>
+                        <p class="mb-3">Всего учителей: ${teachersRes.length} </p>
+                        <button class="teacher-add-button">
+                            Добавить нового учителя
                         </button>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Students Management</h3>
-                        <p class="mb-3">Total: ${studentsRes.length} students</p>
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-sm mb-4">
-                            Add New Student
+                    <div class="manager-student">
+                        <h3>Управление студентами</h3>
+                        <p class="mb-3">Всего студентов: ${studentsRes.length} </p>
+                        <button class="student-add-button">
+                            Добавить нового студента
                         </button>
                     </div>
                 </div>
