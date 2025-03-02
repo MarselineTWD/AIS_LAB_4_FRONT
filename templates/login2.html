@@ -18,37 +18,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="static/css/magnific-popup.css">
-    <link rel="stylesheet" href="static/css/font-awesome.min.css">
     <link rel="stylesheet" href="static/css/themify-icons.css">
-    <link rel="stylesheet" href="static/css/nice-select.css">
-    <link rel="stylesheet" href="static/css/flaticon.css">
-    <link rel="stylesheet" href="static/css/gijgo.css">
-    <link rel="stylesheet" href="static/css/animate.css">
-    <link rel="stylesheet" href="static/css/slicknav.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/auth.css">
     <link rel="stylesheet" href="static/css/header.css">
 
     <!-- Добавление стилей для заднего фона -->
-    <style>
-        body {
-            background-image: url("static/img/folder/back.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-attachment: fixed;
-        }
-    </style>
+
 </head>
 
-<body>
+<body class="body">
     <div id="header-container"></div>
     
     <div class="contregist" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 600px;">
-        <div class="title" style="font-size: 24px; font-weight: bold; margin-bottom: 15px; text-align: center;">Авторизация</div>
+        <div class="title">Авторизация</div>
         <div class="content">
             <div class="switch-buttons" style="margin-bottom: 15px; display: flex; justify-content: center; gap: 15px;">
                 <button type="button" onclick="showLogin()" class="switch-btn active" id="loginButton">Авторизация</button>
@@ -139,8 +122,9 @@
         </div>
     </div>
 
-
+    <div id="footer-container"></div>
     <script src="static/js/auth.js"></script>
+    <script src="static/js/global.js"></script>
     <script src="static/js/registration.js"></script>
 </body>
 </html>

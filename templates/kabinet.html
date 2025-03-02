@@ -11,19 +11,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+    <link rel="stylesheet" href="static/css/themify-icons.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/header.css">
     <link rel="stylesheet" href="static/css/index.css">
     <link rel="stylesheet" href="static/css/kabinet.css">
 </head>
 
-<body class="bg-gray-100">
+<body class="body">
     <div id="header-container"></div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Welcome Section -->
-        <div class="welcome-section">
+        <!-- Welcome Section (теперь скрыт по умолчанию) -->
+        <div class="welcome-section hidden" id="welcomeSection">
             <h1>Добро пожаловать в English Gang</h1>
             <p id="welcomeMessage">
                 Откройте для себя платформу для изучения английского языка с профессиональными учителями.
@@ -41,23 +42,23 @@
             </div>
         </div>
     
-        <!-- Student Dashboard Section (visible only for logged in users) -->
+        <!-- Student Dashboard Section -->
         <div id="studentDashboard" class="student-dashboard hidden">
-            <h2>Your Dashboard</h2>
+            <h2>Ваш профиль</h2>
             <div id="studentData">
                 <!-- Student specific data will be loaded here -->
             </div>
         </div>
     
-        <!-- Teacher Dashboard Section (visible only for logged in teachers) -->
+        <!-- Teacher Dashboard Section -->
         <div id="teacherDashboard" class="teacher-dashboard hidden">
-            <h2>Teacher Dashboard</h2>
+            <h2>Панель преподавателя</h2>
             <div id="teacherData">
                 <!-- Teacher specific data will be loaded here -->
             </div>
         </div>
     
-        <!-- Manager Dashboard Section (visible only for managers) -->
+        <!-- Manager Dashboard Section -->
         <div id="managerDashboard" class="manager-dashboard hidden">
             <h2>Панель администратора</h2>
             <div id="managerData">
