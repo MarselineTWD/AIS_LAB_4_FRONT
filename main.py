@@ -24,7 +24,6 @@ app = FastAPI(
     docs_url="/api/docs",  # URL для Swagger UI
     openapi_url="/api/openapi.json"  # URL для OpenAPI схемы
 )
-
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
