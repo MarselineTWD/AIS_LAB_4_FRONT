@@ -2,10 +2,10 @@
 .contregist {
   max-width: 700px;
   width: 100%;
-  margin: 50px auto;
-  background-color: #fff;
+  margin: 70px auto;
+  background-color: rgba(255, 255, 255, 0.5); /* Белый фон с прозрачностью */
   padding: 25px 30px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -26,7 +26,7 @@
   height: 3px;
   width: 30px;
   border-radius: 5px;
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  background: #1D3D66;
   transform: translateX(-50%);
 }
 
@@ -90,7 +90,7 @@
 
 .input-box input:focus,
 .input-box input:valid {
-  border-color: #9b59b6;
+  border-color: #1D3D66;
 }
 
 /* --- Стилизация выпадающих списков --- */
@@ -127,7 +127,7 @@
 }
 
 .select-wrapper select:focus {
-  border-color: #9b59b6;
+  border-color: #1D3D66;
 }
 
 /* --- Кнопки отправки форм --- */

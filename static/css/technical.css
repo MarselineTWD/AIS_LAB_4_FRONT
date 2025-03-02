@@ -2,7 +2,7 @@
 .technical-info {
     max-width: 1300px;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: 50px;
     font-family: 'Abril Fatface', cursive;
     z-index: 10;
 }
@@ -40,46 +40,46 @@ h2 {
 /* Цели системы */
 .system-goals {
     margin: 40px auto; /* отступ сверху и снизу для всей секции */
-    height: 400px;
+    height: auto; /* Remove fixed height to accommodate content */
     max-width: 1300px; /* ограничивает ширину секции, чтобы она не растягивалась слишком сильно */
 }
 
-
 .goals-content {
     display: flex;
-    justify-content: space-between; /* равномерное распределение блоков по горизонтали */
-    gap: 20px;                      /* отступ между блоками */
+    flex-direction: column; /* Stack blocks vertically instead of horizontally */
+    gap: 20px; /* Maintain spacing between blocks */
     margin-top: 20px;
 }
 
 .goal {
-    flex: 1;                         /* каждый блок растягивается по ширине, чтобы занять всё доступное место */
-    min-width: 200px;               /* минимальная ширина блока, чтобы не схлопывался на узких экранах */
-    background: #fff;               /* цвет фона карточки */
-    border-radius: 10px;            /* скруглённые углы */
+    width: 100%; /* Ensure the block takes full width of its container */
+    background: #fff; /* цвет фона карточки */
+    border-radius: 10px; /* скруглённые углы */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.457);
-    
-    /* Выравнивание содержимого по центру вертикально и горизонтально */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* Задаём высоту, чтобы блоки выглядели более «вытянутыми» */
-    height: 150px;
+    padding: 15px; /* Add padding for content spacing */
+    /* Remove visibility: hidden to ensure content is visible by default */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeInUp 1s ease-out forwards; /* Apply fade-in animation */
 }
+
+.goal:nth-child(1) { animation-delay: 0.2s; }
+.goal:nth-child(2) { animation-delay: 0.4s; }
+.goal:nth-child(3) { animation-delay: 0.6s; }
 
 .goal h3 {
     font-size: 24px;
     font-weight: bold;
-    margin: 0; /* убираем отступы у заголовка */
-    text-align: center;
-    font-family: 'Abril Fatface', cursive;
-    padding: 0 10px; /* небольшой внутренний отступ по бокам */
+    margin: 0 0 10px 0; /* Margin bottom for spacing between title and description */
+    text-align: center; /* Align text left (remove or change to center if preferred) */
+    width: 100%; /* Ensure full width */
 }
 
 .goal p {
     font-size: 20px;
     color: #888;
+    margin: 0; /* Remove default margins */
+    width: 100%; /* Ensure full width */
+    text-align: center;
 }
 
 /* Функциональные возможности */
@@ -97,8 +97,14 @@ h2 {
     width: 400px;
     text-align: center;
     transition: transform 0.3s ease;
+    /* Remove visibility: hidden to ensure content is visible by default */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeInUp 1s ease-out forwards; /* Apply fade-in animation */
 }
 
+.feature:nth-child(1) { animation-delay: 0.2s; }
+.feature:nth-child(2) { animation-delay: 0.4s; }
+.feature:nth-child(3) { animation-delay: 0.6s; }
 
 .feature:hover {
     transform: translateY(-5px);
@@ -131,7 +137,15 @@ h2 {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.457);
     transition: transform 0.3s ease;
+    /* Remove visibility: hidden to ensure content is visible by default */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeInUp 1s ease-out forwards; /* Apply fade-in animation */
 }
+
+.tech-category:nth-child(1) { animation-delay: 0.2s; }
+.tech-category:nth-child(2) { animation-delay: 0.4s; }
+.tech-category:nth-child(3) { animation-delay: 0.6s; }
+.tech-category:nth-child(4) { animation-delay: 0.8s; }
 
 .tech-category:hover {
     transform: translateY(-5px);
@@ -157,8 +171,8 @@ h2 {
     text-align: center;
     color: #666;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    
 }
+
 .tech-category li:hover {
     text-decoration: underline;
 }
@@ -167,8 +181,38 @@ h2 {
     border-bottom: none;
 }
 
+/* Background for the body */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Soft gradient background */
+    background-attachment: fixed; /* Keeps the background fixed while scrolling */
+    margin: 0;
+    padding: 0;
+}
 
+/* Animation keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
+/* Enhance hover effects with slight scale */
+.goal:hover, .feature:hover, .tech-category:hover {
+    transform: scale(1.02) translateY(-5px); /* Slight scale and lift on hover */
+    transition: transform 0.3s ease;
+}
+
+/* Add a subtle shadow animation on hover */
+.goal:hover, .feature:hover, .tech-category:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Existing unused or redundant styles (keeping for reference) */
 .goals-content {
     display: flex;
     flex-direction: column;
@@ -190,9 +234,6 @@ h2 {
     background-color: #0b417f;
     margin-right: 10px;
 }
-
-
-
 
 /* Медиа запросы */
 @media (max-width: 768px) {

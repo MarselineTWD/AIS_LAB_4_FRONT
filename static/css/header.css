@@ -82,10 +82,3 @@ body {
     color: #1D3D66 ;
     border: 1px solid #1D3D66;
 }
-.logout-button {
-    background-color: #e94e4e;
-    color: #1D3D66 ;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-}
