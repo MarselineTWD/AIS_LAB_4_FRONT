@@ -460,7 +460,7 @@ h3 {
   font-size: 18px;
   font-weight: 400;
   border: 0;
-  border: 1px solid #77899d;
+  border: 1px solid #1D3D66;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -476,9 +476,9 @@ h3 {
 
 /* line 66, ../../Arafath/CL/january 2020/243.Education/HTML/scss/_btn.scss */
 .boxed-btn4:hover {
-  background: #8d9dae;
+  background: #1D3D66;
   color: #fff !important;
-  border: 1px solid #8d9dae;
+  border: 1px solid #1D3D66;
 }
 .course_all_btn {
   margin: 0 10px; /* Добавляем отступы между кнопками */
@@ -2486,7 +2486,7 @@ h3 {
 .event_details_area .single_event .event_details_info .event_info_text {
   margin-bottom: 54px;
 }
- 
+
 
 /* line 1, ../../Arafath/CL/january 2020/243.Education/HTML/scss/_course.scss */
 .latest_coures_area {
@@ -2494,12 +2494,10 @@ h3 {
   padding: 140px 0;
   z-index: 0;
 }
- 
 
 /* line 8, ../../Arafath/CL/january 2020/243.Education/HTML/scss/_course.scss */
 .latest_coures_area::before {
   position: absolute;
-  background-image: url(../img/causes/1.png);
   left: 0;
   content: '';
   width: 0%;
@@ -2509,21 +2507,22 @@ h3 {
   background-size: cover;
   background-position: center center;
 }
- 
+
 
 /* line 29, ../../Arafath/CL/january 2020/243.Education/HTML/scss/_course.scss */
 .latest_coures_area::after {
   position: absolute;
-  background: #000;
   left: 0;
   content: '';
   width: 70%;
   top: 0;
   bottom: 0;
   z-index: -1;
-  background-color: rgba(23, 47, 72, 0.871);
+  background-color: rgba(66, 66, 66, 0.7); /* полупрозрачный слой */
+  background-image: url(../img/causes/1.png);
+  background-blend-mode: overlay; /* наложение полупрозрачного слоя поверх картинки */
 }
- 
+
 
 /* line 50, ../../Arafath/CL/january 2020/243.Education/HTML/scss/_course.scss */
 .latest_coures_area .latest_coures_inner::before {
@@ -2595,7 +2594,7 @@ h3 {
 /* line 137, ../../Arafath/CL/january 2020/243.Education/HTML/scss/_course.scss */
 .admission_area::before {
   position: absolute;
-  background-image: url(../img/admission/1.png);
+  background-image: url(static/img/admission/1.png);
   right: 0;
   content: '';
   width: 65%;
@@ -5722,4 +5721,29 @@ body {
   color: #8B0000 ;
   border: 1px solid #8B0000;
   cursor: pointer !important;
+}
+
+.single_service {
+  padding: 20px;
+  height: auto;
+  min-height: 100px;
+}
+
+.single_service .icon {
+  margin-right: 20px;
+}
+
+.single_service .icon i {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.single_service .service_info {
+  flex: 1;
+}
+
+.single_service .service_info h4 {
+  font-size: 20px;
+  margin-bottom: 0;
+  line-height: 1.2;
 }

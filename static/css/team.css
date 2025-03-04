@@ -28,12 +28,12 @@
 
 /* Карточка члена команды */
 .team-member {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.265);
     padding: 20px;
     text-align: center;
     background: white;
     border-radius: 16px;
-    border: 1px solid #0b417f ;
+    border: 1px solid #1D3D66 ;
     transition: transform 0.3s ease;
 }
 
@@ -46,7 +46,7 @@
     width: 150px;
     height: 150px;
     margin: 0 auto 15px;
-    background: #6495ED;
+    background: #1D3D66;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -95,7 +95,7 @@
 }
 
 .skill-tag {
-    background: #0b417f;
+    background: #1D3D66;
     color: #fff;
     padding: 4px 12px;
     border-radius: 12px;
@@ -113,13 +113,14 @@
 }
 
 .contact-link {
-    color: #0b417f;
+    color: #1D3D66;
     text-decoration: none;
     font-size: 14px;
 }
 
 .contact-link:hover {
     text-decoration: underline;
+    color: #1D3D66;
 }
 
 /* Медиа запросы */

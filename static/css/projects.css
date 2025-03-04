@@ -1,7 +1,11 @@
 /* Контейнер проектов */
+.body{
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
 .projects-content {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 50px auto;
     padding: 20px;
 }
 
@@ -23,9 +27,9 @@
 
 /* Карточка проекта */
 .project-card {
-    background: white;
+    background: linear-gradient(135deg, #f2fcef 0%, #ddeafe 100%);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0px 3px 3px rgba(0, 0, 0, 0.2);
     margin-bottom: 30px;
     overflow: hidden;
     text-align: center;
@@ -42,8 +46,8 @@
 /* Статус проекта */
 .project-status {
     display: inline-block;
-    background: #e3f2fd;
-    color: #1976d2;
+    background: #1D3D66;
+    color: white;
     padding: 6px 15px;
     border-radius: 20px;
     font-size: 14px;
@@ -76,7 +80,7 @@
 
 /* Кнопка "Подробнее" */
 .expand-btn {
-    background: #6495ED;
+    background: #1D3D66;
     color: white;
     border: none;
     padding: 10px 30px;
@@ -86,10 +90,13 @@
     min-width: 150px;
     margin-top: 20px;
     transition: background-color 0.3s ease;
+    border: 1px solid #1D3D66;
 }
 
 .expand-btn:hover {
-    background: #4a76d1;
+    background: white;
+    color: #1D3D66;
+    border: 1px solid #1D3D66;
 }
 
 /* Раскрывающаяся часть */
