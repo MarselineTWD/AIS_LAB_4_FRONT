@@ -98,14 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Сохраняем токен в localStorage
             localStorage.setItem('token', data.access_token);
 
-            // Показываем сообщение об успешном входе
-            messageDiv.textContent = 'Успешный вход! Перенаправление...';
-            messageDiv.className = 'message success';
+            
 
             // Перенаправляем на дашборд
             setTimeout(() => {
                 window.location.href = 'kabinet.html';
-            }, 1500);
+            });
 
         } catch (error) {
             messageDiv.textContent = error.message;
