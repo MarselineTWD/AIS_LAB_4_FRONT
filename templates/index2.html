@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Education</title>
+    <title>EnglishGang | Главная</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -31,26 +31,12 @@
     <link rel="stylesheet" href="static/css/slicknav.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/header.css">
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
 </head>
 
 <body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
-
     <!-- header-start -->
     <div id="header-container"></div>
-
-    <script>
-        // Функция для загрузки футера
-        fetch(`static/header.html?${new Date().getTime()}`)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            })
-            .catch(error => console.error('Ошибка при загрузке футера:', error));
-    </script>
     <!-- header-end -->
 
 
@@ -106,32 +92,6 @@
         </div>
     </div>
     <!-- slider_area_end -->
-    <style>
-        .single_service {
-            padding: 20px;
-            height: auto;
-            min-height: 100px;
-        }
-        
-        .single_service .icon {
-            margin-right: 20px;
-        }
-        
-        .single_service .icon i {
-            font-size: 40px;
-            line-height: 1;
-        }
-        
-        .single_service .service_info {
-            flex: 1;
-        }
-        
-        .single_service .service_info h4 {
-            font-size: 20px;
-            margin-bottom: 0;
-            line-height: 1.2;
-        }
-    </style>
 
     <!-- service_area_start  -->
     <div class="service_area gray_bg">
@@ -163,8 +123,8 @@
                             <i class="flaticon-book"></i>
                         </div>
                         <div class="service_info">
-                            <h4>"Присоединяйся к лучшим"
-                            </h4>                        </div>
+                            <h4>"Присоединяйся к лучшим"</h4>                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -382,16 +342,6 @@
 
     <!-- footer start -->
     <div id="footer-container"></div>
-
-    <script>
-        // Функция для загрузки футера
-        fetch('static/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(error => console.error('Ошибка при загрузке футера:', error));
-    </script>
     <!-- footer end  -->
 
 
@@ -415,15 +365,6 @@
     <script src="static/js/jquery.magnific-popup.min.js"></script>
     <script src="static/js/plugins.js"></script>
     <script src="static/js/gijgo.min.js"></script>
-
-    <!--contact js-->
-    <script src="static/js/contact.js"></script>
-    <script src="static/js/jquery.ajaxchimp.min.js"></script>
-    <script src="static/js/jquery.form.js"></script>
-    <script src="static/js/jquery.validate.min.js"></script>
-    <script src="static/js/mail-script.js"></script>
-
-    <script src="static/js/main.js"></script>
     <script src="static/js/global.js"></script>
 
 </body>
