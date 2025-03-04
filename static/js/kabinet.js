@@ -630,12 +630,7 @@ function addModalWindows() {
         });
     });
 
-    // Закрытие при клике вне модального окна
-    window.addEventListener('click', function (event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
-        }
-    });
+
 
     // Добавляем обработчики отправки форм
     document.getElementById('addTeacherForm').addEventListener('submit', addTeacher);
