@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     } else {
         updateUIforGuest();
     }
+
+    // Добавляем модальные окна для форм к body
+    addModalWindows();
 });
 
 // Загрузка списка преподавателей
@@ -171,12 +174,15 @@ async function loadRoleSpecificData(role, token, userData) {
                     </div>
                 `;
         } else if (role === 'manager') {
+            // Дополнительно загрузим всех преподавателей для заполнения выпадающего списка
             const managerData = document.getElementById('managerData');
             managerData.innerHTML = '<div class="text-center">Загрузка данных...</div>';
+            
             const [teachersRes, studentsRes] = await Promise.all([
                 fetch('/api/teachers/', { headers: { 'Authorization': `Bearer ${token}` } }).then(res => res.json()),
                 fetch('/api/students/', { headers: { 'Authorization': `Bearer ${token}` } }).then(res => res.json())
             ]);
+            
             managerData.innerHTML = `
                 <div class="manager-admin">
                     <div class="manager-teacher">
@@ -191,6 +197,13 @@ async function loadRoleSpecificData(role, token, userData) {
                     </div>
                 </div>
             `;
+            
+            // Сохраним список преподавателей для использования в модальном окне добавления студента
+            window.teachersList = teachersRes;
+            
+            // Добавляем обработчики для кнопок добавления
+            document.querySelector('.teacher-add-button').addEventListener('click', showTeacherModal);
+            document.querySelector('.student-add-button').addEventListener('click', showStudentModal);
         }
     } catch (error) {
         console.error(`Error loading ${role} data:`, error);
@@ -219,5 +232,283 @@ function getVocabularyDescription(vocabularyCount) {
         return 'Впечатляющий словарный запас! Вы близки к свободному владению.';
     } else {
         return 'Превосходный словарный запас! Вы практически носитель языка.';
+    }
+}
+
+// Добавление модальных окон для форм
+function addModalWindows() {
+    const modalContainer = document.createElement('div');
+    modalContainer.innerHTML = `
+        <!-- Модальное окно для добавления преподавателя -->
+        <div id="teacherModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Добавить нового преподавателя</h2>
+                <form id="addTeacherForm">
+                    <div class="form-group">
+                        <label for="teacher-first-name">Имя</label>
+                        <input type="text" id="teacher-first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-last-name">Фамилия</label>
+                        <input type="text" id="teacher-last-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-age">Возраст</label>
+                        <input type="number" id="teacher-age" min="18" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-sex">Пол</label>
+                        <select id="teacher-sex" required>
+                            <option value="">Выберите пол</option>
+                            <option value="M">Мужской</option>
+                            <option value="F">Женский</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-qualification">Квалификация</label>
+                        <select id="teacher-qualification" required>
+                            <option value="">Выберите уровень</option>
+                            <option value="A1">A1</option>
+                            <option value="A2">A2</option>
+                            <option value="B1">B1</option>
+                            <option value="B2">B2</option>
+                            <option value="C1">C1</option>
+                            <option value="C2">C2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-email">Email</label>
+                        <input type="email" id="teacher-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-password">Пароль</label>
+                        <input type="password" id="teacher-password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button">Отмена</button>
+                        <button type="submit" class="submit-button">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Модальное окно для добавления студента -->
+        <div id="studentModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Добавить нового студента</h2>
+                <form id="addStudentForm">
+                    <div class="form-group">
+                        <label for="student-first-name">Имя</label>
+                        <input type="text" id="student-first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-last-name">Фамилия</label>
+                        <input type="text" id="student-last-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-age">Возраст</label>
+                        <input type="number" id="student-age" min="7" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-sex">Пол</label>
+                        <select id="student-sex" required>
+                            <option value="">Выберите пол</option>
+                            <option value="M">Мужской</option>
+                            <option value="F">Женский</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-email">Email</label>
+                        <input type="email" id="student-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-level">Уровень английского</label>
+                        <select id="student-level" required>
+                            <option value="">Выберите уровень</option>
+                            <option value="A1">A1 (Начальный)</option>
+                            <option value="A2">A2 (Элементарный)</option>
+                            <option value="B1">B1 (Средний)</option>
+                            <option value="B2">B2 (Выше среднего)</option>
+                            <option value="C1">C1 (Продвинутый)</option>
+                            <option value="C2">C2 (Профессиональный)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-vocabulary">Словарный запас (кол-во слов)</label>
+                        <input type="number" id="student-vocabulary" min="0" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-teacher">Преподаватель</label>
+                        <select id="student-teacher" required>
+                            <option value="">Выберите преподавателя</option>
+                            <!-- Опции будут добавлены динамически -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-password">Пароль</label>
+                        <input type="password" id="student-password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button">Отмена</button>
+                        <button type="submit" class="submit-button">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modalContainer);
+
+    // Добавляем обработчики закрытия модальных окон
+    const closeButtons = document.querySelectorAll('.close-button, .cancel-button');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('teacherModal').style.display = 'none';
+            document.getElementById('studentModal').style.display = 'none';
+        });
+    });
+
+    // Закрытие при клике вне модального окна
+    window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    });
+
+    // Добавляем обработчики отправки форм
+    document.getElementById('addTeacherForm').addEventListener('submit', addTeacher);
+    document.getElementById('addStudentForm').addEventListener('submit', addStudent);
+}
+
+// Показать модальное окно добавления преподавателя
+function showTeacherModal() {
+    document.getElementById('teacherModal').style.display = 'block';
+}
+
+// Показать модальное окно добавления студента
+function showStudentModal() {
+    const modal = document.getElementById('studentModal');
+    
+    // Заполняем выпадающий список преподавателей
+    const teacherSelect = document.getElementById('student-teacher');
+    teacherSelect.innerHTML = '<option value="">Выберите преподавателя</option>';
+    
+    if (window.teachersList && window.teachersList.length > 0) {
+        window.teachersList.forEach(teacher => {
+            const option = document.createElement('option');
+            option.value = teacher.id;
+            option.textContent = `${teacher.first_name} ${teacher.last_name}`;
+            teacherSelect.appendChild(option);
+        });
+    }
+    
+    modal.style.display = 'block';
+}
+
+// Добавление нового преподавателя
+async function addTeacher(event) {
+    event.preventDefault();
+    
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('Вы не авторизованы!');
+        return;
+    }
+    
+    // Собираем данные из формы
+    const teacherData = {
+        first_name: document.getElementById('teacher-first-name').value,
+        last_name: document.getElementById('teacher-last-name').value,
+        age: parseInt(document.getElementById('teacher-age').value),
+        sex: document.getElementById('teacher-sex').value,
+        qualification: document.getElementById('teacher-qualification').value,
+        email: document.getElementById('teacher-email').value,
+        password: document.getElementById('teacher-password').value
+    };
+    
+    try {
+        // Отправляем запрос на создание преподавателя
+        const response = await fetch('/api/teachers/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(teacherData)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Ошибка при добавлении преподавателя');
+        }
+        
+        // Успешное добавление
+        const result = await response.json();
+        alert('Преподаватель успешно добавлен!');
+        
+        // Обновляем список преподавателей
+        if (window.teachersList) {
+            window.teachersList.push(result);
+        }
+        
+        // Перезагружаем страницу, чтобы обновить данные
+        location.reload();
+        
+    } catch (error) {
+        console.error('Ошибка при добавлении преподавателя:', error);
+        alert(`Ошибка: ${error.message}`);
+    }
+}
+
+// Добавление нового студента
+async function addStudent(event) {
+    event.preventDefault();
+    
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('Вы не авторизованы!');
+        return;
+    }
+    
+    // Собираем данные из формы
+    const studentData = {
+        first_name: document.getElementById('student-first-name').value,
+        last_name: document.getElementById('student-last-name').value,
+        age: parseInt(document.getElementById('student-age').value),
+        sex: document.getElementById('student-sex').value,
+        email: document.getElementById('student-email').value,
+        level: document.getElementById('student-level').value,
+        vocabulary: parseInt(document.getElementById('student-vocabulary').value),
+        teacher_id: parseInt(document.getElementById('student-teacher').value),
+        password: document.getElementById('student-password').value
+    };
+    
+    try {
+        // Отправляем запрос на создание студента
+        const response = await fetch('/api/students/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(studentData)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Ошибка при добавлении студента');
+        }
+        
+        // Успешное добавление
+        alert('Студент успешно добавлен!');
+        
+        // Перезагружаем страницу, чтобы обновить данные
+        location.reload();
+        
+    } catch (error) {
+        console.error('Ошибка при добавлении студента:', error);
+        alert(`Ошибка: ${error.message}`);
     }
 }
