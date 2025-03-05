@@ -43,6 +43,8 @@ class Student(Base):
     teacher_id = Column(Integer, ForeignKey("teachers.id"))
     is_active = Column(Boolean, default=True)
 
+    finished_tests = Column(Boolean, default=False)
+
     teacher = relationship("Teacher", back_populates="students")
 
     @staticmethod

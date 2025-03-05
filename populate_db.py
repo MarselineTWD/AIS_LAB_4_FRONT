@@ -1,4 +1,3 @@
-# populate_db.py
 from database import SessionLocal, engine, Base
 from models import Teacher, Student, Manager
 import bcrypt
@@ -10,9 +9,9 @@ def create_tables():
 
 def populate_database():
     create_tables()
-    
+   
     db = SessionLocal()
-    
+   
     try:
         # Создание учителей
         teachers_data = [
@@ -37,13 +36,11 @@ def populate_database():
                 "is_active": True
             }
         ]
-
         teachers = [Teacher(**data) for data in teachers_data]
         db.add_all(teachers)
         db.flush()  # Получаем ID учителей
-
         print("Teachers added successfully!")
-
+        
         # Создание студентов
         students_data = [
             {
@@ -56,7 +53,8 @@ def populate_database():
                 "level": "B2",
                 "vocabulary": 2500,
                 "teacher_id": teachers[0].id,
-                "is_active": True
+                "is_active": True,
+                "finished_tests": False  # Added this line
             },
             {
                 "first_name": "Bob",
@@ -68,16 +66,15 @@ def populate_database():
                 "level": "A2",
                 "vocabulary": 1500,
                 "teacher_id": teachers[1].id,
-                "is_active": True
+                "is_active": True,
+                "finished_tests": False  # Added this line
             }
         ]
-
         students = [Student(**data) for data in students_data]
         db.add_all(students)
         db.flush()
-
         print("Students added successfully!")
-
+        
         # Создание менеджера
         manager = Manager(
             email="admin@example.com",
@@ -87,9 +84,7 @@ def populate_database():
         )
         db.add(manager)
         db.commit()
-
         print("Manager added successfully!")
-
     except Exception as e:
         print(f"An error occurred: {e}")
         db.rollback()

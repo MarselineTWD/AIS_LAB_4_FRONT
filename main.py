@@ -13,7 +13,7 @@ from typing import List, Optional
 from datetime import timedelta
 
 # Import API route modules
-from routers import auth_routes, teacher_routes, student_routes
+from routers import auth_routes, teacher_routes, student_routes, test_routes
 
 # Create database tables
 models.Base.metadata.create_all(bind=engine)
@@ -41,6 +41,25 @@ app.include_router(auth_routes.router, prefix="/api")
 app.include_router(teacher_routes.router, prefix="/api")
 app.include_router(student_routes.router, prefix="/api")
 
+app.include_router(test_routes.router, prefix="/api")
+
+# In the same main.py
+from fastapi.templating import Jinja2Templates
+
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/test", response_class=HTMLResponse)
+async def get_test_page(request: Request):
+    return templates.TemplateResponse("test.html", {
+        "request": request,
+        "level": "XDD",
+        "questions": [
+            {
+                "question": "Test Question",
+                "options": ["A", "B", "C", "D"]
+            }
+        ]
+    })
 
 # Serve HTML pages
 @app.get("/", response_class=HTMLResponse)
