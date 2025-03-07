@@ -9,3 +9,4 @@ pytest
 httpx
 python-jose[cryptography]
 python-dotenv
+email-validator
