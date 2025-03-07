@@ -1,6 +1,6 @@
 # populate_db.py
 from database import SessionLocal, engine, Base
-from models import Teacher, Student, Manager
+from models import Teacher, Student, Manager, Specification, Hobby
 import bcrypt
 
 def create_tables():
@@ -24,7 +24,9 @@ def populate_database():
                 "qualification": "C2",
                 "email": "john.doe@example.com",
                 "password": Teacher.hash_password("teacher123"),
-                "is_active": True
+                "is_active": True,
+                "specification": Specification.grammar,
+                "hobby": Hobby.books
             },
             {
                 "first_name": "Jane",
@@ -34,7 +36,81 @@ def populate_database():
                 "qualification": "C1",
                 "email": "jane.smith@example.com",
                 "password": Teacher.hash_password("teacher456"),
-                "is_active": True
+                "is_active": True,
+                "specification": Specification.pronunciation,
+                "hobby": Hobby.music
+            },
+            {
+                "first_name": "Michael",
+                "last_name": "Brown",
+                "age": 28,
+                "sex": "M",
+                "qualification": "C1",
+                "email": "michael.brown@example.com",
+                "password": Teacher.hash_password("teacher789"),
+                "is_active": True,
+                "specification": Specification.vocabulary,
+                "hobby": Hobby.magazines
+            },
+            {
+                "first_name": "Sarah",
+                "last_name": "Davis",
+                "age": 31,
+                "sex": "F",
+                "qualification": "C2",
+                "email": "sarah.davis@example.com",
+                "password": Teacher.hash_password("teacher101"),
+                "is_active": True,
+                "specification": Specification.grammar,
+                "hobby": Hobby.cinematography
+            },
+            {
+                "first_name": "David",
+                "last_name": "Wilson",
+                "age": 45,
+                "sex": "M",
+                "qualification": "C2",
+                "email": "david.wilson@example.com",
+                "password": Teacher.hash_password("teacher102"),
+                "is_active": True,
+                "specification": Specification.pronunciation,
+                "hobby": Hobby.magazines
+            },
+            {
+                "first_name": "Emma",
+                "last_name": "Taylor",
+                "age": 29,
+                "sex": "F",
+                "qualification": "C1",
+                "email": "emma.taylor@example.com",
+                "password": Teacher.hash_password("teacher103"),
+                "is_active": True,
+                "specification": Specification.vocabulary,
+                "hobby": Hobby.memes
+            },
+            {
+                "first_name": "James",
+                "last_name": "Anderson",
+                "age": 38,
+                "sex": "M",
+                "qualification": "C2",
+                "email": "james.anderson@example.com",
+                "password": Teacher.hash_password("teacher104"),
+                "is_active": True,
+                "specification": Specification.grammar,
+                "hobby": Hobby.music
+            },
+            {
+                "first_name": "Olivia",
+                "last_name": "Martin",
+                "age": 33,
+                "sex": "F",
+                "qualification": "C1",
+                "email": "olivia.martin@example.com",
+                "password": Teacher.hash_password("teacher105"),
+                "is_active": True,
+                "specification": Specification.pronunciation,
+                "hobby": Hobby.books
             }
         ]
 
@@ -53,11 +129,13 @@ def populate_database():
                 "sex": "F",
                 "email": "alice@example.com",
                 "password": Student.hash_password("password123"),
-                "level": "A1",
+                "level": "B2",
                 "vocabulary": 2500,
                 "teacher_id": teachers[0].id,
                 "is_active": True,
-                "finished_tests": False
+                "finished_tests": False,
+                "specification": Specification.vocabulary,
+                "hobby": Hobby.cinematography
             },
             {
                 "first_name": "Bob",
@@ -70,7 +148,9 @@ def populate_database():
                 "vocabulary": 1500,
                 "teacher_id": teachers[1].id,
                 "is_active": True,
-                "finished_tests": False
+                "finished_tests": False,
+                "specification": Specification.pronunciation,
+                "hobby": Hobby.memes
             }
         ]
 

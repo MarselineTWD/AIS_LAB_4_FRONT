@@ -10,7 +10,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
     <link rel="stylesheet" href="static/css/themify-icons.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/header.css">
@@ -71,5 +70,157 @@
 
     <script src="static/js/kabinet.js"></script>
     <script src="static/js/global.js"></script>
+
+    <script>
+    async function loadTeachers() {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.log('No token found, redirecting to login');
+                window.location.href = '/login2.html';
+                return;
+            }
+
+            console.log('Fetching teachers...');
+            const response = await fetch('/api/teachers/recommended/list', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
+                }
+            });
+            
+            console.log('Response status:', response.status);
+            
+            const responseData = await response.json();
+            console.log('Full response data:', JSON.stringify(responseData, null, 2));  // Pretty print the full response
+            
+            if (!response.ok) {
+                let errorMessage = 'Failed to fetch teachers';
+                if (responseData.detail) {
+                    if (Array.isArray(responseData.detail)) {
+                        console.log('Validation errors:', responseData.detail);  // Log validation errors
+                        errorMessage = responseData.detail.map(err => `${err.loc.join('.')}: ${err.msg}`).join('\n');
+                    } else {
+                        errorMessage = responseData.detail;
+                    }
+                }
+                throw new Error(errorMessage);
+            }
+            
+            const teachers = responseData;
+            console.log('Teachers data:', teachers);
+            
+            const teacherList = document.getElementById('teachersList');
+            if (!teacherList) {
+                console.error('Teacher list container not found');
+                return;
+            }
+
+            teacherList.innerHTML = '';
+            
+            if (!Array.isArray(teachers)) {
+                console.error('Teachers data is not an array:', teachers);
+                teacherList.innerHTML = '<div class="alert alert-danger">Invalid data format received from server</div>';
+                return;
+            }
+            
+            if (teachers.length === 0) {
+                teacherList.innerHTML = '<div class="alert alert-info">No teachers available at the moment.</div>';
+                return;
+            }
+            
+            teachers.forEach(teacher => {
+                if (!teacher || typeof teacher !== 'object') {
+                    console.error('Invalid teacher data:', teacher);
+                    return;
+                }
+                
+                const scorePercentage = (teacher.score * 100).toFixed(0);
+                const card = document.createElement('div');
+                card.className = 'col-lg-4 col-md-6 mb-4';
+                card.innerHTML = `
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">${teacher.first_name} ${teacher.last_name}</h5>
+                                <span class="badge bg-primary">${scorePercentage}% Match</span>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li><strong>Age:</strong> ${teacher.age}</li>
+                                <li><strong>Sex:</strong> ${teacher.sex}</li>
+                                <li><strong>Qualification:</strong> ${teacher.qualification}</li>
+                                <li><strong>Specialization:</strong> ${teacher.specification}</li>
+                                <li><strong>Hobby:</strong> ${teacher.hobby}</li>
+                            </ul>
+                            <div class="progress mb-3">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: ${scorePercentage}%" 
+                                     aria-valuenow="${scorePercentage}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="selectTeacher(${teacher.id})">
+                                Select Teacher
+                            </button>
+                        </div>
+                    </div>
+                `;
+                teacherList.appendChild(card);
+            });
+        } catch (error) {
+            console.error('Error in loadTeachers:', error);
+            const teacherList = document.getElementById('teachersList');
+            if (teacherList) {
+                teacherList.innerHTML = `
+                    <div class="alert alert-danger">
+                        <pre>${error.message}</pre>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    // Load teachers when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Page loaded, calling loadTeachers');
+        loadTeachers();
+    });
+    </script>
+
+    <style>
+    .card {
+        transition: transform 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .badge {
+        font-size: 1rem;
+    }
+
+    .progress {
+        height: 10px;
+        border-radius: 5px;
+    }
+
+    .progress-bar {
+        background-color: #007bff;
+    }
+
+    .list-unstyled li {
+        margin-bottom: 0.5rem;
+    }
+    </style>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Recommended Teachers</h2>
+        <div class="row" id="teachersList">
+            <!-- Teachers will be loaded here -->
+        </div>
+    </div>
 </body>
 </html>
