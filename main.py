@@ -12,6 +12,10 @@ import schemas
 from typing import List, Optional
 from datetime import timedelta
 
+# В main.py после других импортов
+from routers import contact_routes
+
+
 # Import API route modules
 from routers import auth_routes, teacher_routes, student_routes, test_routes
 
@@ -22,7 +26,7 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="English Gang API",
     docs_url="/api/docs",  # URL для Swagger UI
-    openapi_url="/api/openapi.json"  # URL для OpenAPI схемы
+    openapi_url="/api/openapi.json",  # URL для OpenAPI схемы
 )
 # Configure CORS
 app.add_middleware(
@@ -43,23 +47,27 @@ app.include_router(student_routes.router, prefix="/api")
 
 app.include_router(test_routes.router, prefix="/api")
 
+app.include_router(contact_routes.router, prefix="/api")
+
 # In the same main.py
 from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="templates")
 
+
 @app.get("/test", response_class=HTMLResponse)
 async def get_test_page(request: Request):
-    return templates.TemplateResponse("test.html", {
-        "request": request,
-        "level": "XDD",
-        "questions": [
-            {
-                "question": "Test Question",
-                "options": ["A", "B", "C", "D"]
-            }
-        ]
-    })
+    return templates.TemplateResponse(
+        "test.html",
+        {
+            "request": request,
+            "level": "XDD",
+            "questions": [
+                {"question": "Test Question", "options": ["A", "B", "C", "D"]}
+            ],
+        },
+    )
+
 
 # Serve HTML pages
 @app.get("/", response_class=HTMLResponse)
@@ -67,60 +75,72 @@ async def serve_index():
     with open("templates/index2.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
+
 @app.get("/login.html", response_class=HTMLResponse)
 async def serve_login():
     with open("templates/login.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
+
 
 @app.get("/login2.html", response_class=HTMLResponse)
 async def serve_login2():
     with open("templates/login2.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
+
 @app.get("/registration.html", response_class=HTMLResponse)
 async def serve_registration():
     with open("templates/registration.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
+
 @app.get("/contact.html", response_class=HTMLResponse)
 async def serve_contact():
     with open("templates/contact.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
-    
+
+
 @app.get("/Courses.html", response_class=HTMLResponse)
 async def serve_Courses():
     with open("templates/Courses.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
-    
+
+
 @app.get("/projects.html", response_class=HTMLResponse)
 async def serve_projects():
     with open("templates/projects.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
-    
+
+
 @app.get("/Teachers.html", response_class=HTMLResponse)
 async def serve_Teachers():
     with open("templates/Teachers.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
-    
+
+
 @app.get("/team.html", response_class=HTMLResponse)
 async def serve_teamn():
     with open("templates/team.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
+
 @app.get("/technical.html", response_class=HTMLResponse)
 async def serve_technical():
     with open("templates/technical.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
-    
+
+
 @app.get("/Tests.html", response_class=HTMLResponse)
 async def serve_Tests():
     with open("templates/Tests.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
+
 @app.get("/kabinet.html", response_class=HTMLResponse)
 async def serve_kabinet():
     with open("templates/kabinet.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
+
 
 # Health check endpoint for Nginx
 @app.get("/health")
