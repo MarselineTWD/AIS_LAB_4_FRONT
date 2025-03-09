@@ -7,6 +7,57 @@ function isKabinetPage() {
 function updateHeaderButton() {
     const token = localStorage.getItem('token');
     const authButton = document.getElementById('openModalBtn');
+    const coursesBtn = document.getElementById('coursesBtn');
+
+    if (coursesBtn) {
+        coursesBtn.onclick = async function(e) {
+            e.preventDefault();
+            console.log('Courses button clicked');
+            
+            const token = localStorage.getItem('token');
+            console.log('Token found:', !!token);
+            
+            if (!token) {
+                console.log('No token, redirecting to login');
+                window.location.href = '/login2.html';
+                return;
+            }
+
+            try {
+                console.log('Fetching user data...');
+                const response = await fetch('/api/me', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    console.log('Response not ok, redirecting to login');
+                    window.location.href = '/login2.html';
+                    return;
+                }
+
+                const userData = await response.json();
+                console.log('User data:', userData);
+                
+                // Check if we have the data we need
+                if (!userData || !userData.additional_info) {
+                    console.log('No user data or additional_info found');
+                    return;
+                }
+
+                const level = userData.additional_info.level?.toLowerCase() || 'a1';
+                console.log('User level:', level);
+                window.location.href = `/test/${level}.html`;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+    }
 
     if (authButton) {
         if (token) {
@@ -50,7 +101,6 @@ function loadHeader() {
         })
         .catch(error => console.error('Ошибка при загрузке header:', error));
 }
-
 
 // Выполняем загрузку header при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {

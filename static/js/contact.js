@@ -1,103 +1,65 @@
-// $(document).ready(function(){
-    
-//     (function($) {
-//         "use strict";
+document.addEventListener("DOMContentLoaded", function () {
+    const contactForm = document.getElementById('contactForm');
 
-    
-//     jQuery.validator.addMethod('answercheck', function (value, element) {
-//         return this.optional(element) || /^\bcat\b$/.test(value)
-//     }, "type the correct answer -_-");
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
 
-//     // validate contactForm form
-//     $(function() {
-//         $('#contactForm').validate({
-//             rules: {
-//                 name: {
-//                     required: true,
-//                     minlength: 2
-//                 },
-//                 subject: {
-//                     required: true,
-//                     minlength: 4
-//                 },
-//                 number: {
-//                     required: true,
-//                     minlength: 5
-//                 },
-//                 email: {
-//                     required: true,
-//                     email: true
-//                 },
-//                 message: {
-//                     required: true,
-//                     minlength: 20
-//                 }
-//             },
-//             messages: {
-//                 name: {
-//                     required: "come on, you have a name, don't you?",
-//                     minlength: "your name must consist of at least 2 characters"
-//                 },
-//                 subject: {
-//                     required: "come on, you have a subject, don't you?",
-//                     minlength: "your subject must consist of at least 4 characters"
-//                 },
-//                 number: {
-//                     required: "come on, you have a number, don't you?",
-//                     minlength: "your Number must consist of at least 5 characters"
-//                 },
-//                 email: {
-//                     required: "no email, no message"
-//                 },
-//                 message: {
-//                     required: "um...yea, you have to write something to send this form.",
-//                     minlength: "thats all? really?"
-//                 }
-//             },
-//             submitHandler: function(form) {
-//                 $(form).ajaxSubmit({
-//                     type:"POST",
-//                     data: $(form).serialize(),
-//                     url:"contact_process.php",
-//                     success: function() {
-//                         $('#contactForm :input').attr('disabled', 'disabled');
-//                         $('#contactForm').fadeTo( "slow", 1, function() {
-//                             $(this).find(':input').attr('disabled', 'disabled');
-//                             $(this).find('label').css('cursor','default');
-//                             $('#success').fadeIn()
-//                             $('.modal').modal('hide');
-// 		                	$('#success').modal('show');
-//                         })
-//                     },
-//                     error: function() {
-//                         $('#contactForm').fadeTo( "slow", 1, function() {
-//                             $('#error').fadeIn()
-//                             $('.modal').modal('hide');
-// 		                	$('#error').modal('show');
-//                         })
-//                     }
-//                 })
-//             }
-//         })
-//     })
-        
-// })(jQuery)
-// })
+            // Базовая валидация
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+            const subject = document.getElementById('subject').value;
 
-document.getElementById('contactForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Отменяем стандартную отправку формы
-    
-    // Получаем значение email
-    var emailInput = document.getElementById('email');
-    var email = emailInput.value.trim();
-    
-    // Регулярное выражение для проверки email
-    var emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    if (!emailPattern.test(email)) {
-        alert('Пожалуйста, введите корректный email адрес');
-        return;
+            if (!email || !name || !message) {
+                alert('Пожалуйста, заполните все обязательные поля');
+                return;
+            }
+
+            // Проверка формата email
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                alert('Пожалуйста, введите корректный email адрес');
+                return;
+            }
+
+            // Отображение состояния загрузки
+            const submitBtn = document.querySelector('.button-contactForm');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        subject: subject || 'Сообщение с сайта',
+                        message: message
+                    })
+                });
+
+                if (response.ok) {
+                    // Успешная отправка
+                    alert('Ваше сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
+                    contactForm.reset();
+                } else {
+                    // Ошибка при отправке
+                    const errorData = await response.json();
+                    alert(`Ошибка при отправке сообщения: ${errorData.detail || 'Пожалуйста, попробуйте позже'}`);
+                }
+            } catch (error) {
+                console.error('Ошибка при отправке формы:', error);
+                alert('Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте позже.');
+            } finally {
+                // Восстановление кнопки
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
     }
-    
-    this.reset(); // Очищаем все поля формы
-    alert('Ваше сообщение отправлено'); // Выводим сообщение
 });

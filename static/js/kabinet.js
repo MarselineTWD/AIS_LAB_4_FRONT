@@ -210,12 +210,54 @@ async function loadRoleSpecificData(role, token, userData) {
                         <div class="learning-progress">
                             <h3>Прогресс обучения</h3>
                             <div class="progress-details">
-                                <p>Уроки пройдены: <span id="completedLessons">0</span></p>
-                                <p>Тесты сданы: <span id="completedTests">0</span></p>
+                                <p><strong>Уровень английского:</strong> ${studentInfo.level}</p>
+                                <button id="TestBtn">Пройти тест</button>
                             </div>
                         </div>
                     </div>
                 `;
+                const testBtn = document.getElementById('TestBtn');
+                if (testBtn) {
+                    testBtn.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        console.log('Test button clicked');
+                        
+                        try {
+                            console.log('Fetching user data...');
+                            const response = await fetch('/api/me', {
+                                method: 'GET',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+
+                            console.log('Response status:', response.status);
+                            
+                            if (!response.ok) {
+                                console.log('Response not ok, redirecting to login');
+                                window.location.href = '/login2.html';
+                                return;
+                            }
+
+                            const userData = await response.json();
+                            console.log('User data:', userData);
+                            
+                            if (!userData || !userData.additional_info) {
+                                console.log('No user data or additional_info found');
+                                return;
+                            }
+
+                            const level = userData.additional_info.level?.toLowerCase() || 'a1';
+                            console.log('User level:', level);
+                            window.location.href = `/test/${level}.html`;
+                        } catch (error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                } else {
+                    console.error('Кнопка #TestBtn не найдена после создания');
+                }
             } catch (studentError) {
                 console.error('Ошибка при загрузке данных о преподавателе:', studentError);
 
@@ -241,9 +283,7 @@ async function loadRoleSpecificData(role, token, userData) {
                         </div>
                         <div class="learning-progress">
                             <h3>Прогресс обучения</h3>
-                            <div class="progress-details">
-                                <p>Уроки пройдены: <span id="completedLessons">0</span></p>
-                                <p>Тесты сданы: <span id="completedTests">0</span></p>
+                            <div class="progress-details">                                <p>Тесты сданы: <span id="completedTests">0</span></p>
                             </div>
                         </div>
                     </div>
@@ -942,3 +982,6 @@ async function deleteStudent(event) {
         alert(`Ошибка: ${error.message}`);
     }
 }
+document.addEventListener('DOMContentLoaded', function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});

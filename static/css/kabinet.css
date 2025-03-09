@@ -4,6 +4,13 @@
     background-size: cover !important;
 }
 
+.row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-right: -15px !important;
+    margin-left: -15px !important;
+}
+
 /* Основной контейнер */
 .main-content {
     max-width: 1280px; /* соответствует max-w-7xl */
@@ -82,7 +89,8 @@
     padding: 2rem; /* p-8 */
     border: 3px dashed #1D3D66; /* пунктирная рамка в темно-синем цвете */
     border-radius: 1rem;
-    background: linear-gradient(to right, #ffd1d1, #ffffcf); /* градиент от светло-синего */    margin-bottom: 2rem; /* mb-8 */
+    background: linear-gradient(to right, #ffd1d1, #ffffcf); /* градиент от светло-синего */
+    margin-bottom: 2rem; /* mb-8 */
     animation: slideIn 0.5s ease-in-out forwards;
     position: relative;
 }
@@ -96,7 +104,6 @@
 }
 
 .teachers-section h2 {
-    
     font-weight: 700; /* font-bold */
     color: #1D3D66; /* text-gray-800 */
     font-family: 'Abril Fatface', cursive;
@@ -107,10 +114,10 @@
     transition: color 0.3s ease;
 }
 
+/* Use Bootstrap's row class for layout */
 .teachers-section #teachersList {
-    display: grid;
-    grid-template-columns: 1fr; /* grid-cols-1 */
-    gap: 1.5rem; /* gap-6 */
+    display: flex; /* Fallback for older browsers */
+    flex-wrap: wrap; /* Allow wrapping */
 }
 
 @media (min-width: 768px) {
@@ -1129,3 +1136,126 @@
         width: 95%;
     }
 }
+/* Card Container */
+.card {
+    width: 100%; /* Take full width of the column */
+    max-width: 350px; /* Set a reasonable maximum width */
+    border: none; /* Remove default border */
+    border-radius: 15px; /* Rounded corners */
+    background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Subtle gradient background */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    overflow: hidden; /* Prevent content overflow */
+    margin: 0 auto; /* Center the card within its column */
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.5rem; /* Adequate padding for content */
+    width: 100%; /* Ensure the body takes full card width */
+}
+
+/* Card Title and Badge */
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 10px;
+    color: #fff; /* Ensure text is white for contrast */
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.6s ease; /* Smooth background color transition */
+}
+
+/* Remove the static background-color from .badge */
+.card:hover .badge {
+    transform: scale(1.1); /* Slight scale on hover */
+    filter: brightness(1.1);
+}
+
+/* Teacher Details List */
+.teacher-details {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.teacher-details li {
+    margin-bottom: 0.75rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.teacher-details li::before {
+    content: "•";
+    color: #007bff;
+    position: absolute;
+    left: 0;
+    font-size: 1rem;
+}
+
+/* Progress Bar */
+/* Progress Bar */
+.progress {
+    height: 8px;
+    border-radius: 10px;
+    background-color: #e9ecef; /* Lighter background for contrast */
+    overflow: hidden;
+    margin-top: 1rem; /* Add spacing above progress bar */
+}
+
+.progress-bar {
+    transition: width 0.6s ease, background-color 0.6s ease; /* Smooth width and color transition */
+    border-radius: 10px;
+}
+/* Hover Effect */
+.card:hover {
+    transform: translateY(-8px); /* Increased lift on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+    
+    .card-body {
+        padding: 1rem; /* Slightly reduced padding on small screens */
+    }
+    
+    .teacher-details li {
+        margin-bottom: 0.5rem; /* Reduced spacing on small screens */
+    }
+}
+
+.teachers-section .card {
+    width: 100% !important;
+    max-width: 350px !important;
+}
+
+.student-dashboard #TestBtn {
+    background-color: #10b981; /* Синий цвет, как на скриншоте */
+    color: white;
+    padding: 0.5rem 1rem; /* Компактные размеры */
+    border-radius: 8px; /* Скругленные углы */
+    font-weight: 600; /* font-semibold */
+    font-size: 1.05rem; /* Соответствует размеру текста */
+    font-family: 'Arial', sans-serif;
+    border: 1px solid #10b981;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.student-dashboard #TestBtn:hover {
+    background-color: white; /* Светлее синий при наведении */
+    color: #10b981;
+    border: 1px solid #10b981;
+    transform: translateY(-2px); /* Лёгкий подъём */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.23); /* Усиленная тень */
