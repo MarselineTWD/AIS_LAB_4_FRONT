@@ -14,8 +14,8 @@
         {
             "question": "He speaks as though he ____ an expert on the subject.",
             "options": [
-                "is",
                 "were",
+                "is",
                 "be",
                 "was"
             ],
@@ -44,8 +44,8 @@
         {
             "question": "The more you practice, ____ you'll become.",
             "options": [
-                "better",
                 "the better",
+                "better",
                 "good",
                 "best"
             ],
@@ -54,9 +54,9 @@
         {
             "question": "Had I known the truth, I ____ differently.",
             "options": [
+                "would have acted",
                 "act",
                 "acted",
-                "would act",
                 "acting"
             ],
             "correct_answer": "would have acted"

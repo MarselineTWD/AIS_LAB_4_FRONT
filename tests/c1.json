@@ -14,8 +14,8 @@
         {
             "question": "Her success can be attributed ____ her unwavering determination.",
             "options": [
-                "in",
                 "to",
+                "in",
                 "by",
                 "with"
             ],
@@ -34,18 +34,18 @@
         {
             "question": "The novel's ____ narrative style challenged traditional storytelling.",
             "options": [
+                "convoluted",
                 "prosaic",
                 "verbose",
-                "laconic",
-                "convoluted"
+                "laconic"
             ],
             "correct_answer": "convoluted"
         },
         {
             "question": "Despite the ____ economic conditions, the company thrived.",
             "options": [
-                "stringent",
                 "adverse",
+                "stringent",
                 "benevolent",
                 "conducive"
             ],
@@ -54,9 +54,9 @@
         {
             "question": "The researcher's findings were ____ with previous studies.",
             "options": [
+                "consistent",
                 "coherent",
                 "compatible",
-                "consistent",
                 "convergent"
             ],
             "correct_answer": "consistent"
@@ -64,8 +64,8 @@
         {
             "question": "Her speech was a ____ of the current political situation.",
             "options": [
-                "testament",
                 "critique",
+                "testament",
                 "panegyric",
                 "epilogue"
             ],
@@ -74,18 +74,18 @@
         {
             "question": "The proposal seemed ____ at first glance.",
             "options": [
+                "ambiguous",
                 "enigmatic",
                 "lucid",
-                "transparent",
-                "ambiguous"
+                "transparent"
             ],
             "correct_answer": "ambiguous"
         },
         {
             "question": "The committee was ____ in its decision making process.",
             "options": [
-                "hesitant",
                 "deliberate",
+                "hesitant",
                 "vacillating",
                 "indecisive"
             ],

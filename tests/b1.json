@@ -4,9 +4,9 @@
         {
             "question": "If I ____ more money, I would travel more.",
             "options": [
+                "had",
                 "have",
                 "has",
-                "had",
                 "will have"
             ],
             "correct_answer": "had"
@@ -14,9 +14,9 @@
         {
             "question": "She suggested ____ to the museum.",
             "options": [
+                "going",
                 "go",
                 "to go",
-                "going",
                 "goes"
             ],
             "correct_answer": "going"
@@ -24,19 +24,19 @@
         {
             "question": "I'm not used ____ up early.",
             "options": [
+                "to getting",
                 "to get",
                 "getting",
-                "get",
-                "to getting"
+                "get"
             ],
             "correct_answer": "to getting"
         },
         {
             "question": "By the time he arrived, we ____ already left.",
             "options": [
+                "had",
                 "have",
                 "has",
-                "had",
                 "were"
             ],
             "correct_answer": "had"
@@ -44,8 +44,8 @@
         {
             "question": "The book ____ by a famous author.",
             "options": [
-                "is written",
                 "was written",
+                "is written",
                 "writes",
                 "wrote"
             ],
@@ -54,19 +54,19 @@
         {
             "question": "I wish you ____ smoking.",
             "options": [
+                "would stop",
                 "stop",
                 "stops",
-                "stopped",
-                "stopping"
+                "stopped"
             ],
             "correct_answer": "would stop"
         },
         {
             "question": "Despite ____ hard, he failed the exam.",
             "options": [
+                "studying",
                 "study",
                 "to study",
-                "studying",
                 "studies"
             ],
             "correct_answer": "studying"
@@ -74,8 +74,8 @@
         {
             "question": "The movie was so boring that I ____ asleep.",
             "options": [
-                "fall",
                 "fell",
+                "fall",
                 "fallen",
                 "falling"
             ],
@@ -94,9 +94,9 @@
         {
             "question": "He behaves as if he ____ a genius.",
             "options": [
+                "were",
                 "is",
                 "be",
-                "were",
                 "was"
             ],
             "correct_answer": "were"

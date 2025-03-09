@@ -11,6 +11,8 @@ import models
 import schemas
 from typing import List, Optional
 from datetime import timedelta
+import os
+import json
 
 # В main.py после других импортов
 from routers import contact_routes
@@ -141,6 +143,33 @@ async def serve_kabinet():
     with open("templates/kabinet.html", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
+@app.get("/test/{test_name}.html", response_class=HTMLResponse)
+async def serve_test(request: Request, test_name: str):
+    """
+    Serve the test page for a specific English proficiency test
+    """
+    # Only allow proficiency tests (not words.json)
+    allowed_tests = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']
+    if test_name.lower() not in allowed_tests:
+        raise HTTPException(status_code=404, detail="Test not found")
+    
+    try:
+        # Read the test data
+        file_path = os.path.join("tests", f"{test_name}.json")
+        with open(file_path, 'r') as f:
+            test_data = json.load(f)
+        
+        # Render the template with the test data
+        return templates.TemplateResponse(
+            "test_page.html",
+            {
+                "request": request,
+                "test_name": test_name,
+                "test_data": test_data
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Health check endpoint for Nginx
 @app.get("/health")

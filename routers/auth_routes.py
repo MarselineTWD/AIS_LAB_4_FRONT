@@ -72,6 +72,7 @@ async def register_student(
 async def read_users_me(current_user: dict = Depends(get_current_user)):
     user = current_user["user"]
     role = current_user["role"]
+
     user_info = {
         "id": user.id,
         "email": user.email,
@@ -79,6 +80,7 @@ async def read_users_me(current_user: dict = Depends(get_current_user)):
         "is_active": user.is_active,
         "additional_info": {},
     }
+
     if role == "student":
         user_info["additional_info"].update(
             {
@@ -87,7 +89,6 @@ async def read_users_me(current_user: dict = Depends(get_current_user)):
                 "level": user.level,
                 "vocabulary": user.vocabulary,
                 "teacher_id": user.teacher_id,
-                "finished_tests": user.finished_tests,  # Added this line
             }
         )
     elif role == "manager":
@@ -100,4 +101,5 @@ async def read_users_me(current_user: dict = Depends(get_current_user)):
                 "qualification": user.qualification,
             }
         )
+
     return user_info

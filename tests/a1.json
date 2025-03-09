@@ -24,8 +24,8 @@
         {
             "question": "How ____ years old are you?",
             "options": [
-                "much",
                 "many",
+                "much",
                 "more",
                 "some"
             ],
@@ -34,8 +34,8 @@
         {
             "question": "What ____ the time?",
             "options": [
-                "he",
                 "is",
+                "he",
                 "do",
                 "does"
             ],
@@ -54,9 +54,9 @@
         {
             "question": "____ you hungry?",
             "options": [
+                "Are",
                 "Do",
                 "Does",
-                "Am",
                 "Is"
             ],
             "correct_answer": "Are"
@@ -74,19 +74,19 @@
         {
             "question": "I have ____ cats.",
             "options": [
+                "some",
                 "a",
                 "an",
-                "the",
-                "some"
+                "the"
             ],
             "correct_answer": "some"
         },
         {
             "question": "Where ____ you from?",
             "options": [
+                "are",
                 "do",
                 "does",
-                "are",
                 "is"
             ],
             "correct_answer": "are"
@@ -94,9 +94,9 @@
         {
             "question": "What color ____ your car?",
             "options": [
+                "is",
                 "do",
                 "does",
-                "is",
                 "are"
             ],
             "correct_answer": "is"

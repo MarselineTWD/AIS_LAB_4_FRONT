@@ -4,9 +4,9 @@
         {
             "question": "I ____ to the cinema last night.",
             "options": [
+                "went",
                 "go",
                 "goes",
-                "went",
                 "going"
             ],
             "correct_answer": "went"
@@ -14,8 +14,8 @@
         {
             "question": "If it ____ tomorrow, I will stay at home.",
             "options": [
-                "rain",
                 "rains",
+                "rain",
                 "rained",
                 "raining"
             ],
@@ -24,10 +24,10 @@
         {
             "question": "She ____ English for two years.",
             "options": [
+                "has been learning",
                 "learn",
                 "learns",
-                "learned",
-                "has been learning"
+                "learned"
             ],
             "correct_answer": "has been learning"
         },
@@ -44,29 +44,29 @@
         {
             "question": "We ____ dinner when the phone rang.",
             "options": [
+                "were having",
                 "have",
                 "has",
-                "had",
-                "were having"
+                "had"
             ],
             "correct_answer": "were having"
         },
         {
             "question": "Can you tell me where ____ from?",
             "options": [
-                "are you",
                 "you are",
+                "are you",
                 "do you",
                 "is you"
             ],
-            "correct_answer": "are you"
+            "correct_answer": "you are"
         },
         {
             "question": "I ____ playing football since childhood.",
             "options": [
+                "have been",
                 "am",
                 "is",
-                "have been",
                 "were"
             ],
             "correct_answer": "have been"
@@ -74,8 +74,8 @@
         {
             "question": "He asked me ____ my weekend was.",
             "options": [
-                "what",
                 "how",
+                "what",
                 "which",
                 "where"
             ],
@@ -84,8 +84,8 @@
         {
             "question": "Could you ____ me a favor?",
             "options": [
-                "make",
                 "do",
+                "make",
                 "have",
                 "take"
             ],
@@ -94,9 +94,9 @@
         {
             "question": "I wish I ____ more time to study.",
             "options": [
+                "had",
                 "have",
                 "has",
-                "had",
                 "having"
             ],
             "correct_answer": "had"

@@ -1,73 +1,93 @@
-from pydantic import BaseModel, EmailStr
+# schemas.py
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List, Dict, Any
+from models import Specification, Hobby
+
 
 class StudentBase(BaseModel):
     first_name: str
     last_name: str
     age: int
     sex: str
-    email: str
+    email: EmailStr
     level: str
     vocabulary: int
     teacher_id: int
-    finished_tests: bool = False  # Added field with default False
+    specification: Specification
+    hobby: Hobby
+
 
 class StudentCreate(StudentBase):
     first_name: str
     last_name: str
     age: int
     sex: str
-    email: str
+    email: EmailStr
     level: str
     vocabulary: int
     teacher_id: int
     password: str
 
+
 class Student(StudentBase):
     id: int
     is_active: bool = True
+    finished_tests: bool
+
     class Config:
         from_attributes = True
 
-# Rest of the schemas remain the same (TeacherBase, TeacherCreate, Teacher, ManagerBase, ManagerCreate, Manager, Token, TokenData, UserInfo)
+
 class TeacherBase(BaseModel):
     first_name: str
     last_name: str
     age: int
     sex: str
     qualification: str
-    email: Optional[str] = None
+    email: EmailStr
+    specification: Specification
+    hobby: Hobby
+
 
 class TeacherCreate(TeacherBase):
-    password: Optional[str] = None
+    password: str
+
 
 class Teacher(TeacherBase):
     id: int
     is_active: bool = True
     students: List[Student] = []
+
     class Config:
         from_attributes = True
 
+
 class ManagerBase(BaseModel):
-    email: str
+    email: EmailStr
     is_superuser: bool = False
     is_active: bool = True
+
 
 class ManagerCreate(ManagerBase):
     password: str
 
+
 class Manager(ManagerBase):
     id: int
+
     class Config:
         from_attributes = True
+
 
 class Token(BaseModel):
     access_token: str
     token_type: str
 
+
 class TokenData(BaseModel):
     email: Optional[str] = None
     role: Optional[str] = None
+
 
 class UserInfo(BaseModel):
     id: int
@@ -75,5 +95,21 @@ class UserInfo(BaseModel):
     role: str
     is_active: bool
     additional_info: Dict[str, Any] = {}
+
+    class Config:
+        from_attributes = True
+
+
+class TeacherScore(BaseModel):
+    id: int
+    first_name: str
+    age: int
+    sex: str
+    qualification: str
+    specification: str
+    hobby: str
+    score: float = Field(ge=0.0, le=1.0)
+    last_name: str
+
     class Config:
         from_attributes = True

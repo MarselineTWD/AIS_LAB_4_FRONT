@@ -34,10 +34,10 @@
         {
             "question": "His interpretation was a ____ of the original text's meaning.",
             "options": [
+                "perversion",
                 "distillation",
                 "obfuscation",
-                "elucidation",
-                "perversion"
+                "elucidation"
             ],
             "correct_answer": "perversion"
         },
@@ -54,8 +54,8 @@
         {
             "question": "Her argument was ____ and devoid of substantive evidence.",
             "options": [
-                "cogent",
                 "specious",
+                "cogent",
                 "compelling",
                 "substantive"
             ],
@@ -64,8 +64,8 @@
         {
             "question": "The novel's protagonist was a ____ of moral ambiguity.",
             "options": [
-                "paragon",
                 "embodiment",
+                "paragon",
                 "exemplar",
                 "archetype"
             ],
@@ -84,9 +84,9 @@
         {
             "question": "The diplomat's language was ____ in its diplomatic subtlety.",
             "options": [
+                "equivocal",
                 "unequivocal",
                 "ambivalent",
-                "equivocal",
                 "transparent"
             ],
             "correct_answer": "equivocal"
