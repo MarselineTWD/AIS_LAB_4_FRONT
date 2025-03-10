@@ -23,35 +23,39 @@ function showLogin() {
     document.getElementById('regButton').classList.remove('active');
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     showLogin();
-});
 
-document.getElementById('registrationForm').addEventListener('submit', function (e) {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+    // Проверка email и паролей, но без отправки формы (без preventDefault)
+    // Эта проверка будет выполняться перед отправкой формы в registration.js
+    function validateRegistrationForm() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
 
-    if (!email.includes('@') || !email.includes('.')) {
-        alert('Введите корректную почту с @ и .');
-        e.preventDefault();
-        return;
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('Введите корректную почту с @ и .');
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Пароли не совпадают');
+            return false;
+        }
+
+        return true;
     }
 
-    if (password !== confirmPassword) {
-        alert('Пароли не совпадают');
-        e.preventDefault();
-    }
-});
+    // Проверка формы входа
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
 
-document.getElementById('loginForm').addEventListener('submit', function (e) {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    if (!email.includes('@') || !email.includes('.')) {
-        alert('Введите корректную почту с @ и .');
-        e.preventDefault();
-    }
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('Введите корректную почту с @ и .');
+            e.preventDefault();
+        }
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -98,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Сохраняем токен в localStorage
             localStorage.setItem('token', data.access_token);
 
-            
+
 
             // Перенаправляем на дашборд
             setTimeout(() => {

@@ -13,19 +13,11 @@ class StudentBase(BaseModel):
     level: str
     vocabulary: int
     teacher_id: int
-    specification: Specification
-    hobby: Hobby
+    specification: str  # Принимаем строку вместо Enum
+    hobby: str  # Принимаем строку вместо Enum
 
 
 class StudentCreate(StudentBase):
-    first_name: str
-    last_name: str
-    age: int
-    sex: str
-    email: EmailStr
-    level: str
-    vocabulary: int
-    teacher_id: int
     password: str
 
 
@@ -45,8 +37,8 @@ class TeacherBase(BaseModel):
     sex: str
     qualification: str
     email: EmailStr
-    specification: Specification
-    hobby: Hobby
+    specification: str  # Принимаем строку вместо Enum
+    hobby: str  # Принимаем строку вместо Enum
 
 
 class TeacherCreate(TeacherBase):

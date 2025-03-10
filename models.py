@@ -9,10 +9,12 @@ import enum
 # Setup password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 class Specification(str, enum.Enum):
     pronunciation = "pronunciation"
     vocabulary = "vocabulary"
     grammar = "grammar"
+
 
 class Hobby(str, enum.Enum):
     cinematography = "cinematography"
@@ -20,6 +22,7 @@ class Hobby(str, enum.Enum):
     magazines = "magazines"
     books = "books"
     memes = "memes"
+
 
 class Teacher(Base):
     __tablename__ = "teachers"
@@ -30,21 +33,24 @@ class Teacher(Base):
     age = Column(Integer)
     sex = Column(String)
     qualification = Column(String)
-    email = Column(String, unique=True, index=True, nullable=True)  # Add email for potential teacher login
+    email = Column(
+        String, unique=True, index=True, nullable=True
+    )  # Add email for potential teacher login
     password = Column(String, nullable=True)  # Add password for potential teacher login
     is_active = Column(Boolean, default=True)
     specification = Column(Enum(Specification))
     hobby = Column(Enum(Hobby))
-    
+
     students = relationship("Student", back_populates="teacher")
-    
+
     @staticmethod
     def hash_password(password: str) -> str:
         """Hash password using passlib"""
         return pwd_context.hash(password)
 
     def verify_password(self, password: str) -> bool:
-        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+        return bcrypt.checkpw(password.encode("utf-8"), self.password.encode("utf-8"))
+
 
 class Student(Base):
     __tablename__ = "students"
@@ -61,8 +67,8 @@ class Student(Base):
     teacher_id = Column(Integer, ForeignKey("teachers.id"))
     is_active = Column(Boolean, default=True)
     finished_tests = Column(Boolean, default=False)
-    specification = Column(Enum(Specification))
-    hobby = Column(Enum(Hobby))
+    specification = Column(Enum(Specification), nullable=False)
+    hobby = Column(Enum(Hobby), nullable=False)
 
     teacher = relationship("Teacher", back_populates="students")
 
@@ -72,7 +78,8 @@ class Student(Base):
         return pwd_context.hash(password)
 
     def verify_password(self, password: str) -> bool:
-        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+        return bcrypt.checkpw(password.encode("utf-8"), self.password.encode("utf-8"))
+
 
 class Manager(Base):
     __tablename__ = "managers"
@@ -89,4 +96,4 @@ class Manager(Base):
         return pwd_context.hash(password)
 
     def verify_password(self, password: str) -> bool:
-        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+        return bcrypt.checkpw(password.encode("utf-8"), self.password.encode("utf-8"))
